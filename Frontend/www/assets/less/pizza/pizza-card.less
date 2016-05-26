@@ -1,47 +1,51 @@
 .pizza-card {
-  img {
-    max-width: 250px;
-  }
+	position: relative;
+	img {
+		max-width: 350px;
+	}
+	h3 {
+		color: @mainColor;
+		background-color: lighten(@mainColor, 45%);
+	}
+}
+.lg-pizza {
+	text-align: center;
+}
+.sm-pizza {
+	text-align: center;
+}
 
-  h3 {
-    color: @mainColor;
-    background-color: lighten(@mainColor, 45%);
-  }
+.new-label {
+	position: absolute;
+	color: #fff;
+	top: -15px;
+	right: -7px;
+	font-size: 17px;
+	font-weight: bold;
+	padding: 3px 7px 3px 7px;
 }
-.button-buy{
-    color:darkorange;
-    display:inline-block;
-    position: relative;
-    margin-left:@main-size;
-    
-    
+.new-label:hover {
+	color: #fff;
 }
-.button-buy-left{
-    position:relative;
-    border-left:@main-size;
-    
+.popular-label {
+	position: absolute;
+	top: -15px;
+	right: -7px;
+	font-size: 17px;
+	font-weight: bold;
+	padding: 3px 7px 3px 7px;
+	color: #fff;
 }
-.button-buy-right{
- 
+.popular-label:hover {
+	color: #fff;
 }
-.text-header{
-  display:block;
-    color:white;
-    text-align:left;
-    font-family:@font-family;
+.caption h3 {
+	background-color: #fff;
+	color: @mainColor;
 }
-.text-free{
-display:inline;
+.caption h6 {
+	color: #A8A5A2;
 }
-.text-time{
-    display:inline; 
-}
-.text-number{
-    display:inline;
-}
-.footer-title{
-    color:grey;
-    text-align:center;
-    font-family:@font-family;
-    padding-top:@main-size/2;
+.pizza-pic {
+	width: 100%;
 }
