@@ -3,265 +3,6 @@
 @init-font-size:10px;
 
 
-
-/*.text-header {
-	color:lightgrey;
-}
-.panel-top {
-	background-color: rgba(5, 5, 5, 0.8); 
-}
-
-.emblem-text-pizza {
-	font-size: 1.6*@init-font-size;
-	margin: 0.8*@init-font-size,0.8*@init-font-size;0px,0px;
-}
-.emblem-text-KMA {
-	font-size: 27px;
-}
-#discount-flag-top {
-	position: absolute;
-	margin-left: -10px;
-	margin-top: 20px;
-	-webkit-transform: rotate(180deg);
-	-moz-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
-	-o-transform: rotate(180deg);
-}
-hr {
-	margin: 1px;
-	border-color:darkgray;
-}
-.header-rows {
-	padding-top: 10px;
-	position: relative;
-	padding-left: 120px;
-	padding-right: 10px;
-	margin-right: @right-container-size;
-}
-.header-foot-row {
-	color:aliceblue;
-	padding-top: 5px;
-}
-.phone-number {
-	font-size: 20px;
-}
-@media (max-width: 767px) {
-	.phone-number {
-		font-size: 15px;
-	}
-}
-.sign-in {
-	float: right;
-	margin-top: -5px;
-	border: 0;
-}
-.top-row-item {
-	margin-left: 13px;
-	margin-right: 13px;
-	margin-bottom: 10px;
-}
-.delivery-text {
-	font-size: 17px;
-}
-.bottom-row-item {
-	color: #fff;
-	font-size: 17px;
-	margin-left: 15px;
-	margin-right: 15px;
-}
-.bottom-row-item:hover {
-	color: #fff;
-}
-.discount-fixed-label {
-	width: 100px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	color: #fff;
-	position: fixed;
-	margin-left: 10px;
-	bottom: 0;
-	background-color: @mainColor;
-	z-index: 1;
-	text-align: center;
-}
-.emblem {
-	width: 100px;
-	height: 90px;
-	color: #fff;
-	margin-left: 10px;
-	background-color: @mainColor;
-	float: left;
-	padding: 10px;
-	text-align: center;
-	position: relative;
-}
-#discount-flag-bottom {
-	margin-top: -34px;
-	margin-left: -10px;
-}
-.discount-label {
-	font-size: 15px;
-	font-weight: bold;
-	margin-top: -5px;
-	padding-bottom: 5px;
-	margin-bottom: 10px;
-	border-bottom: 2px;
-	border-bottom-style: dotted;
-	border-bottom-color: #D16301;
-	text-transform: uppercase;
-}
-.discount-text {
-	font-size: 15px;
-	font-weight: bold;
-}
-.sort-area {
-	margin-bottom: 50px;
-    align-content:center;
-    text-align:center;
-    position:relative;
-    right:-180px;
-    
-   
-    
-}
-.main-title {
-	margin-top: 120px;
-	text-align: center;
-}
-.all-pizzas-counter {
-	color: @mainColor;
-}
-.nav .pizza-filter a {
-	color: #ee6a00;
-}
-.nav .pizza-filter.active a {
-	background-color: #ee6a00;
-}
-.nav .pizza-filter.active a:hover {
-	background-color: #ee6a00;
-}
-.right-panel {
-	position: fixed!important;
-	width: @right-container-size;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	height: 100%;
-	background-color: #fff;
-	float: right;
-	z-index: 10000;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-.main-field {
-	padding-left: 120px;
-	padding-right: @right-container-size+40px;
-}
-.footer {
-	text-align: center;
-	margin-right: @right-container-size;
-	color: #A8A5A2;
-	margin-top: 20px;
-	margin-bottom: 30px;
-}
-.summary-top {
-	height: 91px;
-	padding: 30px 10px 5px 10px;
-}
-.summary-bottom {
-	position: absolute;
-	height: 130px;
-	width: 100%;
-	bottom: 0;
-	background-color: #fff;
-	padding: 10px 20px 10px 20px;
-}
-.summary-main {
-	background-color: #F5F5F5;
-	height: 100%;
-}
-.order-counter {
-	background-color: @mainColor;
-	margin-left: 5px;
-}
-.right-panel-title {
-	font-weight: bold;
-	font-size: 19px;
-}
-#clean-order {
-	color: #A8A5A2;
-	font-size: 10px;
-	margin-left: 15px;
-}
-.summary-total-title {
-	font-weight: bold;
-	font-size: 14px;
-    position:relative;
-    left:-15px;
-    top:-10px;
-}
-#summary-total-counter {
-	font-weight: bold;
-	font-size: 18px;
-    position:relative;
-    top:-10px;
-	float: right;
-}
-.summary-total {
-	margin: 10px;
-}
-#order-btn {
-	width: 95%;
-	margin-top: 5px;
-    position:relative;
-    top:-10px;
-}
-#gag-message {
-	padding-top: 30px;
-	text-align: center;
-	font-size: 17px;
-	color: gray;
-}
-.pizza-ordered-pic {
-	position: absolute;
-	right: -60px;
-	height: 100px;
-}
-.pizza-ordered {
-	height: 120px;
-	position: relative;
-	padding: 5px;
-	border-bottom: 1px solid #A1A1A1;
-}
-.pizza-ordered-title {
-	margin: 15px 20px 0 20px;
-	color: @mainColor;
-	font-size: 17px;
-}
-.ordered-size {
-	float: left;
-	margin-right: 20px;
-}
-.pizza-ordered-info {
-	margin: 5px 20px 5px 20px;
-}
-.circle-btn {
-	border-radius: 50%;
-	min-width: 25px;
-	min-height: 23px;
-}
-.rm-btn {
-	color: @mainColor;
-	margin-left: 15px;
-}
-.pizza-ordered-pricing-space {
-	padding: 5px 0 0 15px;
-	font-size: 15px;
-	font-weight: bold;
-}
-.ordered-price {
-	margin-right: 20px;
-}*/
 .text-header{
  padding-left:160px;
     color:azure;}
@@ -269,6 +10,28 @@ hr {
 {
  margin-left: 15px;
 	margin-right: 15px;
+}
+.name-of-pizza{
+    font-size:30px;
+    font-weight:bold;
+    text-align:left;
+    color:@mainColor;
+}
+.type-pizza{
+    font-size:16px;
+    font-weight:normal;
+    color:darkgrey;
+}
+.info{
+    font-size:18px;
+    color:black;
+}
+
+
+
+.price{
+    font-size:24px;
+    color:black;
 }
    
 
