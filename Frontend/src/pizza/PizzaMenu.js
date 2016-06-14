@@ -20,9 +20,17 @@ function showPizzaList(list) {
         
 
         $node.find(".buy-lg-button").click(function(){
+         /*   var prev_number= $(".order-value").val();
+            console.log("Hello :"+prev_number);
+            var new_number=prev_number+1;
+            $(".order-value").val(new_number);*/
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
         });
         $node.find(".buy-sm-button").click(function(){
+         /*   var prev_number= $(".order-value").val();
+            console.log("Hello :"+prev_number);
+            var new_number=prev_number+1;
+            $(".order-value").val(new_number);*/
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Small);
         });
 

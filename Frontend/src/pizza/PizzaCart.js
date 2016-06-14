@@ -8,12 +8,13 @@ var PizzaSize = {
     Big: "big_size",
     Small: "small_size"
 };
-
+var order_val=1;
 //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
 
 //HTML едемент куди будуть додаватися піци
 var $cart = $(".order-list");
+
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
@@ -33,7 +34,7 @@ function removeFromCart(cart_item) {
     //Видалити піцу з кошика
     //TODO: треба зробити
     var removePizzaIndex= Cart.indexOf(cart_item);
-    if(removePizzaqIndex>-1){
+    if(removePizzaIndex>-1){
     Cart.splice(removePizzaIndex,cart_item);
 }else{
     console.log("Not removed :"+cart_item);
@@ -58,6 +59,12 @@ function getPizzaInCart() {
 }
 
 function updateCart() {
+    var $order_value= $("#order-value");
+    
+    
+   
+    $order_value.html(order_val);
+    
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
 
@@ -67,27 +74,50 @@ function updateCart() {
     //Онволення однієї піци
     function showOnePizzaInCart(cart_item) {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
-
+ console.log("Start cart:"+cart_item.quantity);
+    console.log("Start order_val:"+order_val);
         var $node = $(html_code);
 
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
-            cart_item.quantity += 1;
+            cart_item.quantity ++;
+            order_val++;
+            console.log("Order_val:"+order_val);
+            $order_value.html(order_val);
             
 
             //Оновлюємо відображення
             updateCart();
         });
-        $node.find(".delete-button").click(function(){
-cart_item.quantity -=1;
-            if(cart_item.quantity = 0){
- removeFromCart(cart_item);}
+        
+        $node.find(".subtract-button").click(function(){
+            if(cart_item.quantity>0&&order_val>0){
+            cart_item.quantity-=1;
+           order_val-=1; 
+                
+console.log("Order_val:"+order_val);
+            $order_value.html(order_val);
+            }
+             if(cart_item.quantity<0||order_val<0){
+                
+            }
+
+            
+            if(cart_item.quantity === 0){
+ removeFromCart(cart_item);
+           
         updateCart();
-        });
-          $node.find(".remove-button").click(function(){
+        }});
+        
+          $node.find(".delete-button").click(function(){
+            order_val-=cart_item.quantity;
+              $order_value.html(order_val);
+              
+              
 removeFromCart(cart_item);
         updateCart();
         });
+        
         
 
         $cart.append($node);
