@@ -6,7 +6,7 @@ var PizzaCart = require('./PizzaCart');
 var Pizza_List = require('../Pizza_List');
 
 //HTML едемент куди будуть додаватися піци
-var $pizza_list = $("#pizza_list");
+var $pizza_list = $(".main-field");
 
 function showPizzaList(list) {
     //Очищаємо старі піци в кошику
@@ -17,11 +17,12 @@ function showPizzaList(list) {
         var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
 
         var $node = $(html_code);
+        
 
-        $node.find(".buy-big").click(function(){
+        $node.find(".buy-lg-button").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
         });
-        $node.find(".buy-small").click(function(){
+        $node.find(".buy-sm-button").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Small);
         });
 

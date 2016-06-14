@@ -79,7 +79,14 @@ function updateCart() {
             updateCart();
         });
         $node.find(".delete-button").click(function(){
-cart.item.quantity -=1;})
+cart_item.quantity -=1;
+        updateCart();
+        });
+          $node.find(".remove-button").click(function(){
+removeFromCart(cart_item);
+        updateCart();
+        });
+        
 
         $cart.append($node);
     }
