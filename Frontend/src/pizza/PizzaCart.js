@@ -114,7 +114,7 @@ function updateCart() {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
        console.log("H:"+html_code);
         var $node = $(html_code);
-        
+      
 console.log($node);
        
         $node.find(".add-button").click(function(){
@@ -124,6 +124,7 @@ console.log($node);
             order_val++;
             changePrice(cart_item,1);
             $order_value.html(order_val);
+                
          
             
           
