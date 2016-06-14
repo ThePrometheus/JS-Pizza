@@ -12,12 +12,12 @@ function getIngredientsArray(pizza) {
         //a.concat(b) створює спільний масив із масивів a та b
         result = result.concat(content[key]);
     });
-
-    return result;
+console.log("result:"+result);
+    return result; 
 }
 
    %>
-<div class="col-md-6 col-lg-4 pizza-card">
+<div class="col-md-6 col-lg-4 ">
      <div class="thumbnail pizza-card">
         <img class="pizza-image" src="<%= pizza.icon %>" alt="Pizza">
 
@@ -33,7 +33,7 @@ function getIngredientsArray(pizza) {
             <div class="name-of-pizza"><br><%= pizza.title %></div>
             <div class="type-of-pizza"><br><%= pizza.type %></div>
             <div class="info"><p>
-                <% getIngredientsArray(pizza).join(", ") %>
+                <%= getIngredientsArray(pizza).join(", ") %>
                 </p>
             </div>
         </div>
@@ -45,6 +45,7 @@ function getIngredientsArray(pizza) {
                                             <span class="size"><%= pizza.small_size.size %></span>
                                         </div>
                                         <div>
+                                            <% if(pizza.small_size) { %>
                                             <img src="assets/images/weight.svg" />
                                             <span class="weight"><%= pizza.small_size.weight %></span>
                                         </div>
@@ -53,9 +54,11 @@ function getIngredientsArray(pizza) {
                                             <span>грн.</span>
                                         </div>
                                         <a href="#" class="btn btn-warning buy-sm-button gradient">Купити</a>
+                                        <% } %>
                                     </div>
 
                                     <div class="col-sm-6 lg-pizza">
+                                        <%  if (pizza.big_size) { %>
                                         <div>
                                             <img  class ="pizza-image" src="assets/images/size-icon.svg" />
                                             <span class="size"><%=  pizza.big_size.size %></span>
@@ -69,6 +72,7 @@ function getIngredientsArray(pizza) {
                                             <span>грн.</span>
                                         </div>
                                         <a href="#" class="btn btn-warning buy-lg-button gradient">Купити</a>
+                                        <% } %>
                                     </div>
                                 </div>
 
