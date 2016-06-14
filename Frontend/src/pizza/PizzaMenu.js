@@ -26,6 +26,10 @@ var $pizza_list = $(".main-field .row");
       if(id==="pizza-for-vegan"){
           filterPizza("Вега");
       }
+      if(id==="all-pizza-filter"){
+          $(".main-title").html("<br>Усі<span class='badge'>6</span>");
+          initialiseMenu();
+      }
       
         
                 
@@ -87,6 +91,9 @@ function filterPizza(filter) {
       console.log(pizza_shown);
 
    });
+    $(".main-title").html("<br>"+filter+"<span class='badge'>"+pizza_shown.length+"</span>");
+        
+    
 
 
         //Якщо піка відповідає фільтру
