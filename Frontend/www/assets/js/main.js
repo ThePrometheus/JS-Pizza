@@ -233,10 +233,18 @@ function addToCart(pizza, size) {
         size: size,
         quantity: 1
     });
+}else{
+    incrementOne(Cart,pizza);
+    
 }
     //Оновити вміст кошика на сторінці
     updateCart();
 }
+function incrementOne(Cart,pizza){
+  for(var i=0;i<Cart.length;i++){
+    if(Cart[i].pizza.id===pizza.id){
+        Cart[i].quantity++;  
+}}}
 function ifSimilar(Cart, pizza){
 for(var i=0;i<Cart.length;i++){
     if(Cart[i].pizza.id===pizza.id){
@@ -250,8 +258,10 @@ function removeFromCart(cart_item) {
     //Видалити піцу з кошика
     //TODO: треба зробити
     var removePizzaIndex= Cart.indexOf(cart_item);
-    if(removePizzaIndex>-1){
-    Cart.splice(removePizzaIndex,cart_item);
+    console.log("to remove:"+removePizzaIndex);
+    if(removePizzaIndex > -1){
+    Cart.splice(removePizzaIndex,1);
+        console.log("Successfully.removed"+Cart);
 }else{
     console.log("Not removed :"+cart_item);
 }
@@ -296,6 +306,7 @@ function updateCart() {
 
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
+            if(cart_item.quantity>0){
             cart_item.quantity ++;
             order_val++;
             console.log("Order_val:"+order_val);
@@ -305,7 +316,7 @@ function updateCart() {
             $counter.text(cart_item.quantity);
 
             //Оновлюємо відображення
-            updateCart();
+            updateCart();}
         });
         
         $node.find(".subtract-button").click(function(){
@@ -328,11 +339,18 @@ console.log("Order_val:"+order_val);
         }});
         
           $node.find(".delete-button").click(function(){
+              if(cart_item.quantity>0&&order_val>0){
+              console.log("Save our souls");
+           removeFromCart(cart_item);   
+    
             order_val-=cart_item.quantity;
-              $order_value.html(order_val);
+                  $order_value.html(order_val);
+              }
+               if(cart_item.quantity<0||order_val<0){
+                
+            }
               
-              
-removeFromCart(cart_item);
+                      
         updateCart();
         });
         
