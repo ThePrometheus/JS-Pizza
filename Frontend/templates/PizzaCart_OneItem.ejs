@@ -1,9 +1,51 @@
-<div>
-    <%= pizza.title %> (<%= size %>)
-    <div>Ціна: <%= pizza[size].price %> грн.</div>
-    <div>
-        <button class="btn btn-danger minus">-</button>
-        <span class="label label-default"><%= quantity %></span>
-        <button class="btn btn-success plus">+</button>
-    </div>
-</div>
+<div class="pizza-ordered">
+
+                            <img class="pizza-image-list" src="<%= pizza.icon %>" />
+                            <div class="ordered-pizza-name">
+                                <p><%=pizza.title %></p>
+
+
+
+
+
+                                <div class="ordered-size">
+                                    <img  class ="pizza-image" src="assets/images/size-icon.svg" />
+                                    <%= if(pizza.small_size){ %>
+                                    <span class="size"><%=pizza.small_size.size %></span>
+                                    <span class="weight"><%= pizza.small_size.weight %></span>
+
+<%= } %>
+                                    <%= if(pizza.big_size){ %>
+                                    <span class="size"><%=pizza.big_size.size %></span>
+                                    <span class="weight"><%= pizza.big_size.weight %></span>
+
+<%= } %>
+                                    <img class ="pizza-image"  src="assets/images/weight.svg" />
+                                   
+                                </div>
+                                 <div class="order-text">
+                                      
+                                     <%= if(pizza.small_size){ %>
+                                <span class="ordered-price"><%= pizza.small_size.price %></span>
+<%= } %>
+                                              <%= if(pizza.big_size){ %>
+                                <span class="ordered-price"><%= pizza.big_size.price %></span>
+<%= } %>
+                                <a class="btn btn-xs btn-danger subtract-button" href="#">
+                                    <span class="glyphicon glyphicon-minus">
+                                    </span>
+                                </a>
+                                <span class="pizza-ordered-counter"> 1 </span>
+                                <a class="btn btn-xs btn-success gradient add-button" href="#">
+                                    <span class="glyphicon glyphicon-plus"></span></a>
+                                <a class="btn btn-xs btn-default circle-btn delete-button" href="#">
+                                    <span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+
+
+                           </div>     
+
+
+
+
+                        </div>
