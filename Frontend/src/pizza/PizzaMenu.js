@@ -29,7 +29,7 @@ function showPizzaList(list) {
         $pizza_list.append($node);
     }
 
-    list.forEach(showOnePizza);
+list.forEach(showOnePizza);
 }
 
 function filterPizza(filter) {

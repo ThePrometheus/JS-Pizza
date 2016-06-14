@@ -24,7 +24,7 @@ function getIngredientsArray(pizza) {
         <% if(pizza.is_new) { %>
        <div class="btn label-success gradient popular-label">Нова
                             </div>
-        <% } else if(pizza.is_popular) {%>
+        <% } else if(pizza.is_popular) { %>
         <div class="btn label-danger gradient popular-label">Популярна
                             </div>
         <% } %>
@@ -33,7 +33,7 @@ function getIngredientsArray(pizza) {
             <div class="name-of-pizza"><br><%= pizza.title %></div>
             <div class="type-of-pizza"><br><%= pizza.type %></div>
             <div class="info"><p>
-                <%= getIngredientsArray(pizza).join(", ") %>
+                <% getIngredientsArray(pizza).join(", ") %>
                 </p>
             </div>
         </div>
@@ -41,15 +41,15 @@ function getIngredientsArray(pizza) {
 
                                     <div class="col-sm-6 sm-pizza">
                                         <div>
-                                            <img src="<%=pizza.icon %>"/>
-                                            <span class="size"><%=pizza.small_size.size %></span>
+                                            <img src="<%= pizza.icon %>"/>
+                                            <span class="size"><%= pizza.small_size.size %></span>
                                         </div>
                                         <div>
                                             <img src="assets/images/weight.svg" />
                                             <span class="weight"><%= pizza.small_size.weight %></span>
                                         </div>
                                         <div>
-                                            <div class="price"><%= pizza.small_size.price %></div>
+                                            <div class="price"><%=  pizza.small_size.price %></div>
                                             <span>грн.</span>
                                         </div>
                                         <a href="#" class="btn btn-warning buy-sm-button gradient">Купити</a>
@@ -58,7 +58,7 @@ function getIngredientsArray(pizza) {
                                     <div class="col-sm-6 lg-pizza">
                                         <div>
                                             <img  class ="pizza-image" src="assets/images/size-icon.svg" />
-                                            <span class="size"><%= pizza.big_size.size %></span>
+                                            <span class="size"><%=  pizza.big_size.size %></span>
                                         </div>
                                         <div>
                                             <img  class = "pizza-image" src="assets/images/weight.svg" />

@@ -13,7 +13,7 @@ var PizzaSize = {
 var Cart = [];
 
 //HTML едемент куди будуть додаватися піци
-var $cart = $("#to-buy-list");
+var $cart = $(".order-list");
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
@@ -80,6 +80,8 @@ function updateCart() {
         });
         $node.find(".delete-button").click(function(){
 cart_item.quantity -=1;
+            if(cart_item.quantity = 0){
+ removeFromCart(cart_item);}
         updateCart();
         });
           $node.find(".remove-button").click(function(){
