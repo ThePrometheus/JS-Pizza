@@ -300,9 +300,11 @@ function updateCart() {
     //Онволення однієї піци
     function showOnePizzaInCart(cart_item) {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
+        console.log("Html code:"+html_code);
  console.log("Start cart:"+cart_item.quantity);
     console.log("Start order_val:"+order_val);
         var $node = $(html_code);
+        
 
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
@@ -342,9 +344,12 @@ console.log("Order_val:"+order_val);
               if(cart_item.quantity>0&&order_val>0){
               console.log("Save our souls");
            removeFromCart(cart_item);   
-    
-            order_val-=cart_item.quantity;
-                  $order_value.html(order_val);
+    if(cart_item.quantity>order_val){
+        order_val=0;
+    $order_value.html(order_val);}
+    else{
+            order_val -= cart_item.quantity;
+                  ;}
               }
                if(cart_item.quantity<0||order_val<0){
                 
