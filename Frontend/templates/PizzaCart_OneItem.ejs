@@ -10,12 +10,12 @@
 
                                 <div class="ordered-size">
                                     <img  class ="pizza-image" src="assets/images/size-icon.svg" />
-                                    <% if(pizza.small_size){  %>
+                                    <% if(size=="small_size"){  %>
                                     <span class="size"><%= pizza.small_size.size %></span>
                                     <span class="weight"><%= pizza.small_size.weight %></span>
 
 <% } %>
-                                    <% if(pizza.big_size){ %>
+                                    <% if(size=="big_size"){ %>
                                     <span class="size"><%= pizza.big_size.size %></span>
                                     <span class="weight"><%=  pizza.big_size.weight %></span>
 
@@ -25,17 +25,17 @@
                                 </div>
                                  <div class="order-text">
                                       
-                                     <%  if(pizza.small_size){ %>
+                                     <%  if(size=="small_size"){  %>
                                 <span class="ordered-price"><%=  pizza.small_size.price %></span>
 <% } %>
-                                              <% if(pizza.big_size){ %>
+                                              <% if(size=="big_size"){  %>
                                 <span class="ordered-price"><%= pizza.big_size.price %></span>
 <% } %>
                                 <a class="btn btn-xs btn-danger subtract-button" href="#">
                                     <span class="glyphicon glyphicon-minus">
                                     </span>
                                 </a>
-                                <span class="pizza-ordered-counter">1 </span>
+                                <span class="pizza-ordered-counter"> 1 </span>
                                 <a class="btn btn-xs btn-success gradient add-button" href="#">
                                     <span class="glyphicon glyphicon-plus"></span></a>
                                 <a class="btn btn-xs btn-default circle-btn delete-button" href="#">
