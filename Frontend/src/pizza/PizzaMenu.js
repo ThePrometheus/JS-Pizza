@@ -56,6 +56,7 @@ function showPizzaList(list) {
             var order = parseInt($(".total-price").text());
             
             $(".total-price").text(pizza.big_size.price+order +" грн ");
+           PizzaCart.incValue();
         });
         $node.find(".buy-sm-button").click(function(){
          /*   var prev_number= $(".order-value").val();
@@ -67,6 +68,7 @@ function showPizzaList(list) {
              var order = parseInt($(".total-price").text());
             
             $(".total-price").text(pizza.small_size.price+order + "  грн ");
+       PizzaCart.incValue();
         });
 
         $pizza_list.append($node);

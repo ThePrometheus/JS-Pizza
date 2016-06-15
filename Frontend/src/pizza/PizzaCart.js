@@ -9,7 +9,7 @@ var PizzaSize = {
     Big: "big_size",
     Small: "small_size"
 };
-var order_val=1;
+var order_val=0;
 
 //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
@@ -29,12 +29,16 @@ function addToCart(pizza, size) {
         size: size,
         quantity: 1
     });
+        incValue();
 }else{
     incrementOne(Cart,pizza);
     
 }
     //Оновити вміст кошика на сторінці
     updateCart();
+}
+function incValue(){
+    order_val++;
 }
 function incrementOne(Cart,pizza){
   for(var i=0;i<Cart.length;i++){
@@ -56,8 +60,9 @@ function removeFromCart(cart_item) {
     var removePizzaIndex= Cart.indexOf(cart_item);
     console.log("to remove:"+removePizzaIndex);
     if(removePizzaIndex > -1){
+        
     Cart.splice(removePizzaIndex,1);
-        console.log("Successfully.removed"+Cart);
+        
 }else{
     console.log("Not removed :"+cart_item);
 }
@@ -67,12 +72,21 @@ function removeFromCart(cart_item) {
 }
 
 function initialiseCart() {
+
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
     //TODO: ...
     var saved_orders =	Storage.get('cart');
 if(saved_orders)	{
 Cart	=	saved_orders;
+    $(".total-price").text(0 + "грн");
+    Cart.forEach(function(cart_item,index,Cart){
+        changePrice(cart_item,cart_item.quantity);
+        for(var i =0;i<cart_item.quantity;i++){
+            incValue();
+            
+        }
+    })
     updateCart();
 }else{
     
@@ -120,16 +134,22 @@ function updateCart() {
     //Онволення однієї піци
     function showOnePizzaInCart(cart_item) {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
-       console.log("H:"+html_code);
+    //   console.log("H:"+html_code);
         var $node = $(html_code);
       
-console.log($node);
+//console.log($node);
        
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
             if(cart_item.quantity>0){
+                console.log("addidtion");
             cart_item.quantity ++;
-            order_val++;
+                console.log("cart_item.quantity"+cart_item.quantity);
+                if(cart_item.quantity===2){
+         }else{
+             order_val++;
+         }
+                console.log("order-val:"+order_val)
             changePrice(cart_item,1);
             $order_value.html(order_val);
                 
@@ -143,38 +163,49 @@ console.log($node);
         });
         
         $node.find(".subtract-button").click(function(){
+                   if(cart_item.quantity == 0){
+ removeFromCart(cart_item);
+           
+        updateCart();
+        } if(cart_item.quantity<0||order_val<0){
+                
+            }
             if(cart_item.quantity>0&&order_val>0){
             cart_item.quantity-=1;
            order_val-=1; 
                 changePrice(cart_item,-1);
                 
-console.log("Order_val:"+order_val);
+//console.log("Order_val:"+order_val);
             $order_value.html(order_val);
             }
-             if(cart_item.quantity<0||order_val<0){
-                
-            }
+            
 
             
-            if(cart_item.quantity === 0){
- removeFromCart(cart_item);
-           
-        updateCart();
-        }});
+     });
         
           $node.find(".delete-button").click(function(){
+              if(cart_item.quantity==1){
+                  order_val--;
+              }
               if(cart_item.quantity>0&&order_val>0){
+                  
             //  console.log("Save our souls");
                   
-           removeFromCart(cart_item);   
+              
     if(cart_item.quantity>order_val){
         order_val=0;
+        cart_item.quantity=0;
         
     $order_value.html(order_val);}
     else{
             order_val -= cart_item.quantity;
-        changePrice(cart_item, - cart_item.quantity);
-                  ;}
+        
+        changePrice(cart_item, -cart_item.quantity);
+       // cart_item.quantity=0;
+       // console.log("Order-val after remove"+order_val);
+        $order_value.html(order_val);
+                  }
+                  removeFromCart(cart_item);
               }
                if(cart_item.quantity<0||order_val<0){
                 
@@ -185,6 +216,7 @@ console.log("Order_val:"+order_val);
         });
         
         
+        
 
         $cart.append($node);
     }
@@ -193,6 +225,7 @@ console.log("Order_val:"+order_val);
     Storage.set("cart",Cart);
 
 }
+exports.incValue= incValue;
 
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
