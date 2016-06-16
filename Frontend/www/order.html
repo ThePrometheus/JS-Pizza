@@ -6,7 +6,8 @@
 
             <!-- Bootsrap CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
+ <script type= "text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRIymwmsUpPbwvlg_OLxbsW46MqVDKcXM&sensor=false&callback=initialize"
+        async defer></script> 
             <!-- LESS основний файл -->
             <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
             <!-- LESS JavaScript компілятор -->
@@ -88,21 +89,84 @@
 
                     </div>
             </div>
-            
+           
     <script>
 
-var map;
-function initMap() {
-    alert("I am alive");
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
+function initialize(){
+    var mapProp = {
+        center:new google.maps.LatLng(50.464379,30.519131),
+        zoom:11};
+    var html_element= document.getElementById("map");
+    var map = new google.maps.Map(html_element,mapProp);
+    
+        var point = new google.maps.LatLng(50.464379,30.519131);
+        var marker= new google.maps.Marker({
+            position:point,
+            map:map,
+            icon:"assets/images/map-icon.png"
+        });
 }
+     //   marker.setMap(null);
+google.maps.event.addDomListener(window,'load',initialize);
+        google.maps.event.addListener(map,'click',function(me){
+            var coordinates =mew.LatLng;
+            
+        });
+        function geocodeLatLng(latlng,callback){
+            var geocoder =new google.maps.Geocoder();
+            gecoder.geocde({'location':latlng},function(result,status){
+                if(status === google.maps.GeocoderStatus.OK && results[1]){
+                    var address= results[1].formatted_address;
+                    callback(null,addres);
+                    
+                }else{
+callback(new Error("Can't find addres"));}
+            } );
+        }
+                           google.maps.event.addListener(map,'click',function(me){
+                var cooridnates = mew.latLng;
+                geocodeLatlng(coordinates,function(err,address){
+                    if(!err){
+                        console.log(address);
+                    }else{
+                        console.log("Address not found!");
+                    }
+                })
+            });
+            function geocodeAddress(address,callback){
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'address':address},function(result,status){
+                    if(status===google.maps.GeocoderStstus.OK&&result[0]){
+                        var coordinates = result[0].geometry.location;
+                        callback(null,coordinates);
+}else{
+    callback(new error("Can't find address"));
+}
+                });
+} 
+            function calculateRoute( A_latLng,B_latLng,callback){
+    var directionService = new google.maps.DirectionsService();
+    directionService.route({
+        origin:A_latLng,
+        destination:B_latLng,
+        travelMode:google.maps.TravelMode["DRIVING"]},function(response,status){
+        if(status== google.maps.DirectionsServece.OK){
+            var leg = response.routes[0]/legs[0];
+            callback(null,{
+                duration:leg.duration
+            });
+        }else{
+            callback(new Error("Can'tfind direction"));
+        }
+    
+    });
+}
+            
+        
+        
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRIymwmsUpPbwvlg_OLxbsW46MqVDKcXM&callback=initMap"
-        async defer></script>
+   
 
 
 
