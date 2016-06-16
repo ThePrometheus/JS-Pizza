@@ -95,6 +95,12 @@ Cart	=	saved_orders;
     
 
     updateCart();}
+    $("#clean-to-buy-text").click(function(){
+        $order.html(0 +"грн");
+        Cart= [];
+        updateCart();
+        
+    });
 }
 
 function getPizzaInCart() {
