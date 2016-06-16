@@ -1,0 +1,208 @@
+<% include common/header.ejs %>
+
+
+            <div class="main-field container-fluid">
+                <div class="main-title">
+                    <br>Усі піци <span class="badge">6</span>
+                </div>
+                <div class="sort-area">
+                    <ul class="nav nav-pills nav-custom">
+                        <li role="presentation" class="all-pizzas" id="all-pizza-filter">
+                            <a href="javascript:;">
+                                Усі
+                            </a></li>
+                        <li role="presentation" class="all-pizzas" id="pizza-with-meat">
+                            <a href="javascript:;">М'ясні</a>
+                        </li>
+                        <li role="presentation" class="all-pizzas" id="pizza-with-pinapple">
+                            <a href="javascript:;">З ананасами</a>
+                        </li>
+                        <li role="presentation" class="all-pizzas" id="pizza-with-mushroom">
+                            <a href="javascript:;">З грибами</a>
+                        </li>
+                        <li role="presentation" class="all-pizzas" id="pizza-with-fish">
+                            <a href="javascript:;">З морепродуктами</a>
+                        </li>
+                        <li role="presentation" class="all-pizzas" id="pizza-for-vegan">
+                            <a href="javascript:;">Вега</a>
+                        </li>
+                    </ul>
+                </div>
+        <div class ="row">	
+            
+          <!-- <div class="col-md-6 col-lg-4">
+                        <div class="thumbnail pizza-card">
+                            <img class="pizza-image" src="assets/images/pizza_2.jpg">
+                            <div class="btn label-danger gradient popular-label">Популярна
+                            </div>
+                            <div class="caption">
+                                <div class ="name-of-pizza">
+                                    <br>BBQ
+                                    <div class = "type-pizza">
+                                        <br>М'ясна піца
+                                        <div class = "info">
+                                            <p>Мисливські ковбаски, ковбаски папероні, шинка, сир домашній, шампінйони, петрушка, оливки</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-sm-6 sm-pizza">
+                                        <div>
+                                            <img src="assets/images/size-icon.svg" />
+                                            <span class="size">30</span>
+                                        </div>
+                                        <div>
+                                            <img src="assets/images/weight.svg" />
+                                            <span class="weight">370</span>
+                                        </div>
+                                        <div>
+                                            <div class="price">129</div>
+                                            <span>грн.</span>
+                                        </div>
+                                        <a href="#" class="btn btn-warning buy-sm-button gradient">Купити</a>
+                                    </div>
+
+                                    <div class="col-sm-6 lg-pizza">
+                                        <div>
+                                            <img  class ="pizza-image" src="assets/images/size-icon.svg" />
+                                            <span class="size">40</span>
+                                        </div>
+                                        <div>
+                                            <img  class = "pizza-image" src="assets/images/weight.svg" />
+                                            <span class="weight">660</span>
+                                        </div>
+                                        <div>
+                                            <div class="price">199</div>
+                                            <span>грн.</span>
+                                        </div>
+                                        <a href="#" class="btn btn-warning buy-lg-button gradient">Купити</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                   
+    
+
+                 
+        </div>
+        </div>
+
+
+                <div id="to-buy-list">
+                <div class = " order nav navbar-default">
+                        <div class="order-text-title">
+                            Замовлення
+                            <span class="badge">
+                                <div id = "order-value">0</div>
+                                </span>
+                    </div>
+                        <div class="clean-to-buy-text">
+                            Очистити замовлення
+                    </div>
+                    </div>
+                    
+                    <div class="order-list">
+<!--
+                       <div class="pizza-ordered">
+
+                            <img class="pizza-image-list" src="assets/images/pizza_1.jpg" />
+                            <div class="ordered-pizza-name">
+                                <p>BBQ (мала)</p>
+
+
+
+
+
+                                <div class="ordered-size">
+                                    <img  class ="pizza-image" src="assets/images/size-icon.svg" />
+                                    <span class="size">30000</span>
+
+
+                                    <img class ="pizza-image"  src="assets/images/weight.svg" />
+                                    <span class="weight">460</span>
+                                </div>
+                                 <div class="order-text">
+                                <span class="ordered-price">189 грн</span>
+                                <a class="btn btn-xs btn-danger subtract-button" href="#">
+                                    <span class="glyphicon glyphicon-minus">
+                                    </span>
+                                </a>
+                                <span class="pizza-ordered-counter"> 4 </span>
+                                <a class="btn btn-xs btn-success gradient add-button" href="#">
+                                    <span class="glyphicon glyphicon-plus"></span></a>
+                                <a class="btn btn-xs btn-default circle-btn delete-button" href="#">
+                                    <span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+
+
+                           </div>     
+
+
+
+
+                        </div>
+
+                         <!-- <div class="pizza-ordered">
+
+                            <img class="pizza-image-list" src="assets/images/pizza_1.jpg" />
+                            <div class="ordered-pizza-name">
+                                <p>BBQ (мала)</p>
+
+
+
+
+
+                                <div class="ordered-size">
+                                    <img  class ="pizza-image" src="assets/images/size-icon.svg" />
+                                    <span class="size">30000</span>
+
+
+                                    <img class ="pizza-image"  src="assets/images/weight.svg" />
+                                    <span class="weight">460</span>
+                                </div>
+                                 <div class="order-text">
+                                <span class="ordered-price">189 грн</span>
+                                <a class="btn btn-xs btn-danger subtract-button" href="#">
+                                    <span class="glyphicon glyphicon-minus">
+                                    </span>
+                                </a>
+                                <span class="pizza-ordered-counter"> 4 </span>
+                                <a class="btn btn-xs btn-success gradient add-button" href="#">
+                                    <span class="glyphicon glyphicon-plus"></span></a>
+                                <a class="btn btn-xs btn-default circle-btn delete-button" href="#">
+                                    <span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+
+
+                           </div>     
+
+
+
+
+                        </div>
+
+                    </div> -->
+       
+
+
+                  
+        </div>
+                      <div class="left-bottom-total-price">
+<div>
+                            <span class="total-value">Сума замовлення</span>
+                            <span class="total-price">0 грн</span>
+                        </div>
+                        <div class="btn btn-lg btn-warning gradient" id="order-button">Замовити</div>
+                        </div>
+      <!--  <div class = "footer container-fluid">
+            <div class = "footer-text">
+                Some text here
+</div>
+        </div> -->
+
+<% include common/footer.ejs %>

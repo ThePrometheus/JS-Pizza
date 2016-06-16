@@ -4,6 +4,16 @@
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart')
 var Pizza_List = require('../Pizza_List');
+var api = require('../API');
+function getPizzas(err, data) {
+    if (!err)
+        Pizza_List = data;
+}
+
+api.getPizzaList(function (err, data) {
+    if (!err)
+        Pizza_List = data;
+});
 
 
 //HTML едемент куди будуть додаватися піци
@@ -109,6 +119,7 @@ function filterPizza(filter) {
 }
 
 function initialiseMenu() {
+   
     //Показуємо усі піци
     showPizzaList(Pizza_List)
 }

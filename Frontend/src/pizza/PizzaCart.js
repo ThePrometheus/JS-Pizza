@@ -138,6 +138,7 @@ function updateCart() {
         var $node = $(html_code);
       
 //console.log($node);
+        order_val++;
        
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
@@ -184,9 +185,7 @@ function updateCart() {
      });
         
           $node.find(".delete-button").click(function(){
-              if(cart_item.quantity==1){
-                  order_val--;
-              }
+              
               if(cart_item.quantity>0&&order_val>0){
                   
             //  console.log("Save our souls");

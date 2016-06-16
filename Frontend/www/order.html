@@ -1,0 +1,187 @@
+      
+        <html>
+        <head lang="en">
+            <meta charset="UTF-8">
+            <title>Оформити замовлення</title>
+
+            <!-- Bootsrap CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+            <!-- LESS основний файл -->
+            <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
+            <!-- LESS JavaScript компілятор -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
+
+        </head>
+        <body>
+
+
+
+           <div class =" navbar transparent navbar-nav">
+
+                    <div class="main-container navbar transparent navbar-fixed-top panel-top">
+                        <div class="navbar-brand emblem">
+                            <div class="emblem-text medium-font">
+                                <br>PIZZA</div>
+                            <div class= "emblem-text large-font">
+                                <br>KMA
+                            </div>
+                            <img class="emblem-image-discount" src="assets/images/discount.svg" />
+                        </div>
+                        <div class="row">
+                            <div class="text-header">
+                                <div class="phone-number top-row-item visible-xs-inline-block visible-sm-inline-block visible-lg-inline-block visible-md-inline-block">
+                                    (044) 222 5 222
+                                </div>
+                                <div class=" time-text top-row-item visible-lg-inline-block visible-md-inline-block">
+                                    24 години/ 7 днів на тиждень
+                                </div>
+                                <div class="top-row-item delivery-text visible-lg-inline-block">
+                                    Безкоштовна доставка піци
+                                </div>
+                                <div type="button" class="btn btn-warning  top-row-item gradient sign-in-button">
+                                    Ввійти
+                                </div>
+                            </div>
+
+                            <hr/>
+                            <div class="line-in-header">
+                                <a href="./index.html" class="under-line-text hidden-xs">Піца</a></div>
+                        </div>
+                </div>
+                </div>
+                <div class = "order-container">
+                    <div class = "contact-info">
+                        <div class = "contact-text">
+                        <br> 1. Контактні дані
+                        </div>
+                        <!-- from ww3schoool.com http://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                            <label class="control-label col-sm-2" for="name">Ім'я</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email" placeholder="Ім'я Прізвище">
+                                    </div>
+                                    </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="telephone">Телефон</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" id="telephone" placeholder="+380958403344">
+            </div>
+          </div>
+                              <div class="form-group">
+            <label class="control-label  col-sm-2" for="Адреса">Адреса</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" id="address" placeholder="вул.Г.Сковороди,2">
+            </div>
+          </div>
+         
+          <div class="form-group"> 
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Далі</button>
+            </div>
+          </div>
+                            <div id="map"></div>
+        </form>
+        
+
+                    </div>
+            </div>
+            
+    <script>
+
+var map;
+function initMap() {
+    alert("I am alive");
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRIymwmsUpPbwvlg_OLxbsW46MqVDKcXM&callback=initMap"
+        async defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         <div id="to-buy-list">
+                        <div class = " order nav navbar-default">
+                                <div class="order-text-title">
+                                    Замовлення
+                                    <span class="badge">
+                                        <div id = "order-value">0</div>
+                                        </span>
+                            </div>
+                                <div class="clean-to-buy-text">
+                                    Очистити замовлення
+                            </div>
+                            </div>
+
+                            <div class="order-list">
+
+
+
+
+
+                </div>
+                              <div class="left-bottom-total-price">
+        <div>
+                                    <span class="total-value">Сума замовлення</span>
+                                    <span class="total-price">0 грн</span>
+                                </div>
+                                <div class="btn btn-lg btn-warning gradient" id="order-button">Замовити</div>
+                                </div>
+              <!--  <div class = "footer container-fluid">
+                    <div class = "footer-text">
+                        Some text here
+        </div>
+                </div> -->
+
+
+
+        
+
+
+                <!-- jQuery JavaScript -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
+
+        <!--Bootsrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <!--Own JavaScript -->
+        <script type="text/javascript"  src="assets/js/main.js"> </script>
+               <div class = "emblem-inverse">
+                    <img class = "emblem-inverse-image" src="assets/images/discount.svg">
+                    <div class="emblem-inverse-text">
+                        <br>Цього
+                        <br>тижня 
+                        <br> знижка на 20%
+        </div>
+                </div>
+
+
+        </body>
+        </html>

@@ -1,5 +1,46 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
+ * Created by chaika on 09.02.16.
+ */
+var API_URL = "http://localhost:5050";
+
+function backendGet(url, callback) {
+    $.ajax({
+        url: API_URL + url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+function backendPost(url, data, callback) {
+    $.ajax({
+        url: API_URL + url,
+        type: 'POST',
+        contentType : 'application/json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+exports.getPizzaList = function(callback) {
+    backendGet("/api/get-pizza-list/", callback);
+};
+
+exports.createOrder = function(order_info, callback) {
+    backendPost("/api/create-order/", order_info, callback);
+};
+},{}],2:[function(require,module,exports){
+/**
  * Created by diana on 12.01.16.
  */
 
@@ -176,7 +217,7 @@ var pizza_info = [
 ];
 
 module.exports = pizza_info;
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var basil = require("basil.js");
 basil = new basil();
 exports.get = function(key){
@@ -185,7 +226,7 @@ exports.get = function(key){
 exports.set = function(key,value){
 	return basil.set(key,value);
 };
-},{"basil.js":7}],3:[function(require,module,exports){
+},{"basil.js":8}],4:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -197,7 +238,7 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(
 
 exports.PizzaCart_OneItem = ejs.compile("<div class=\"pizza-ordered\">\r\n\r\n                            <img class=\"pizza-image-list\" src=\"<%=  pizza.icon %>\" />\r\n                            <div class=\"ordered-pizza-name\">\r\n                                <p><%= pizza.title %></p>\r\n\r\n\r\n\r\n\r\n\r\n                                <div class=\"ordered-size\">\r\n                                    <img  class =\"pizza-image\" src=\"assets/images/size-icon.svg\" />\r\n                                    <% if(size==\"small_size\"){  %>\r\n                                    <span class=\"size\"><%= pizza.small_size.size %></span>\r\n                                    <span class=\"weight\"><%= pizza.small_size.weight %></span>\r\n\r\n<% } %>\r\n                                    <% if(size==\"big_size\"){ %>\r\n                                    <span class=\"size\"><%= pizza.big_size.size %></span>\r\n                                    <span class=\"weight\"><%=  pizza.big_size.weight %></span>\r\n\r\n<% } %>\r\n                                    <img class =\"pizza-image\"  src=\"assets/images/weight.svg\" />\r\n                                   \r\n                                </div>\r\n                                 <div class=\"order-text\">\r\n                                      \r\n                                     <%  if(size==\"small_size\"){  %>\r\n                                <span class=\"ordered-price\"><%=  pizza.small_size.price %></span>\r\n<% } %>\r\n                                              <% if(size==\"big_size\"){  %>\r\n                                <span class=\"ordered-price\"><%= pizza.big_size.price %></span>\r\n<% } %>\r\n                                <a class=\"btn btn-xs btn-danger subtract-button\" href=\"#\">\r\n                                    <span class=\"glyphicon glyphicon-minus\">\r\n                                    </span>\r\n                                </a>\r\n                                <div class=\"badCounter\"><%= quantity %> </div>\r\n                                <a class=\"btn btn-xs btn-success gradient add-button\" href=\"#\">\r\n                                    <span class=\"glyphicon glyphicon-plus\"></span></a>\r\n                                <a class=\"btn btn-xs btn-default circle-btn delete-button\" href=\"#\">\r\n                                    <span class=\"glyphicon glyphicon-remove\"></span></a>\r\n                            </div>\r\n\r\n\r\n                           </div>     \r\n\r\n\r\n\r\n\r\n                        </div>");
 
-},{"ejs":8}],4:[function(require,module,exports){
+},{"ejs":9}],5:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -213,7 +254,7 @@ $(function(){
 
 
 });
-},{"./Pizza_List":1,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
+},{"./Pizza_List":2,"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -354,6 +395,7 @@ function updateCart() {
         var $node = $(html_code);
       
 //console.log($node);
+        order_val++;
        
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
@@ -400,9 +442,7 @@ function updateCart() {
      });
         
           $node.find(".delete-button").click(function(){
-              if(cart_item.quantity==1){
-                  order_val--;
-              }
+              
               if(cart_item.quantity>0&&order_val>0){
                   
             //  console.log("Save our souls");
@@ -450,13 +490,23 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../Storage":2,"../Templates":3}],6:[function(require,module,exports){
+},{"../Storage":3,"../Templates":4}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart')
 var Pizza_List = require('../Pizza_List');
+var api = require('../API');
+function getPizzas(err, data) {
+    if (!err)
+        Pizza_List = data;
+}
+
+api.getPizzaList(function (err, data) {
+    if (!err)
+        Pizza_List = data;
+});
 
 
 //HTML едемент куди будуть додаватися піци
@@ -562,13 +612,14 @@ function filterPizza(filter) {
 }
 
 function initialiseMenu() {
+   
     //Показуємо усі піци
     showPizzaList(Pizza_List)
 }
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../Pizza_List":1,"../Templates":3,"./PizzaCart":5}],7:[function(require,module,exports){
+},{"../API":1,"../Pizza_List":2,"../Templates":4,"./PizzaCart":6}],8:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -937,7 +988,7 @@ exports.initialiseMenu = initialiseMenu;
 
 })();
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1698,7 +1749,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":10,"./utils":9,"fs":11,"path":12}],9:[function(require,module,exports){
+},{"../package.json":11,"./utils":10,"fs":12,"path":13}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1841,7 +1892,7 @@ exports.cache = {
 };
 
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -1925,9 +1976,9 @@ module.exports={
   "directories": {}
 }
 
-},{}],11:[function(require,module,exports){
-
 },{}],12:[function(require,module,exports){
+
+},{}],13:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2155,7 +2206,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":13}],13:[function(require,module,exports){
+},{"_process":14}],14:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2276,4 +2327,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[4]);
+},{}]},{},[5]);
