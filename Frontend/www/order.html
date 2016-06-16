@@ -54,6 +54,9 @@
                         </div>
                 </div>
                 </div>
+            <div class="container custom-order-one">
+            <div class = "row">
+                <div class = "col-md-6 col-xs-6 col-sm-6 col-lg-6">            
                 <div class = "order-container">
                     <div class = "contact-info">
                         <div class = "contact-text">
@@ -82,15 +85,36 @@
          
           <div class="form-group"> 
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Далі</button>
+              <button type="submit" class="btn btn-default btn-warning gradient next-button">Далі</button>
             </div>
           </div>
                             <div id="map"></div>
         </form>
         
-
                     </div>
+                    
+                    </div> 
+                    
+                </div>
+                 <div class = "col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                    <div class= "info-about-order">
+                        <div clas="info-about-order-text">
+                            <div class ="info-about-order-text-title">
+                                Інформація про замовлення
+                            </div>
+                            <div class = "info-about-order-time">Приблизний час доставки:
+                   <span class= "info-about-order-time-res standard-text">невідомий</span>
+                            </div>
+                              <div class = "info-about-order-address">Адреса  доставки:
+                   <span class= "info-about-order-address-res standard-text">невідома</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+               
             </div>
+                </div>
            
     <script>
 
@@ -116,10 +140,10 @@ function initialize(){
         });
         function geocodeLatLng(latlng,callback){
             var geocoder =new google.maps.Geocoder();
-            gecoder.geocde({'location':latlng},function(result,status){
+            gecoder.geocode({'location':latlng},function(result,status){
                 if(status === google.maps.GeocoderStatus.OK && results[1]){
                     var address= results[1].formatted_address;
-                    callback(null,addres);
+                    callback(null,address);
                     
                 }else{
 callback(new Error("Can't find addres"));}
@@ -138,7 +162,7 @@ callback(new Error("Can't find addres"));}
             function geocodeAddress(address,callback){
                 var geocoder = new google.maps.Geocoder();
                 geocoder.geocode({'address':address},function(result,status){
-                    if(status===google.maps.GeocoderStstus.OK&&result[0]){
+                    if(status===google.maps.GeocoderStatus.OK&&result[0]){
                         var coordinates = result[0].geometry.location;
                         callback(null,coordinates);
 }else{
@@ -152,8 +176,8 @@ callback(new Error("Can't find addres"));}
         origin:A_latLng,
         destination:B_latLng,
         travelMode:google.maps.TravelMode["DRIVING"]},function(response,status){
-        if(status== google.maps.DirectionsServece.OK){
-            var leg = response.routes[0]/legs[0];
+        if(status== google.maps.DirectionsService.OK){
+            var leg = response.routes[0].legs[0];
             callback(null,{
                 duration:leg.duration
             });
