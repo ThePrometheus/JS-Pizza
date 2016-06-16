@@ -4,10 +4,12 @@
             <meta charset="UTF-8">
             <title>Оформити замовлення</title>
 
+            
+             <script type= "text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRIymwmsUpPbwvlg_OLxbsW46MqVDKcXM&sensor=false"
+        ></script> 
             <!-- Bootsrap CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
- <script type= "text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRIymwmsUpPbwvlg_OLxbsW46MqVDKcXM&sensor=false&callback=initialize"
-        async defer></script> 
+
             <!-- LESS основний файл -->
             <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
             <!-- LESS JavaScript компілятор -->
@@ -107,9 +109,9 @@ function initialize(){
         });
 }
      //   marker.setMap(null);
-google.maps.event.addDomListener(window,'load',initialize);
+
         google.maps.event.addListener(map,'click',function(me){
-            var coordinates =mew.LatLng;
+            var coordinates =me.LatLng;
             
         });
         function geocodeLatLng(latlng,callback){
@@ -124,7 +126,7 @@ callback(new Error("Can't find addres"));}
             } );
         }
                            google.maps.event.addListener(map,'click',function(me){
-                var cooridnates = mew.latLng;
+                var cooridnates = me.latLng;
                 geocodeLatlng(coordinates,function(err,address){
                     if(!err){
                         console.log(address);
@@ -162,7 +164,7 @@ callback(new Error("Can't find addres"));}
     });
 }
             
-        
+     google.maps.event.addDomListener(window,'load',initialize);   
         
 
     </script>
