@@ -78,6 +78,7 @@ function initialiseCart() {
     //TODO: ...
     var saved_orders =	Storage.get('cart');
 if(saved_orders)	{
+    order_val=0;
 Cart	=	saved_orders;
     $(".total-price").text(0 + "грн");
     Cart.forEach(function(cart_item,index,Cart){
@@ -120,10 +121,15 @@ function changePrice(cart_item,item){
 
 function updateCart() {
     var $order_value= $("#order-value");
-    
+    order_val=0;
+     Cart.forEach(function(cart_item,index,Cart){
+        order_val+=cart_item.quantity;
+    });
     
    
     $order_value.html(order_val);
+    
+   
     
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
@@ -138,18 +144,16 @@ function updateCart() {
         var $node = $(html_code);
       
 //console.log($node);
-        order_val++;
+       // order_val++;
        
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
             if(cart_item.quantity>0){
-                console.log("addidtion");
-            cart_item.quantity ++;
+                console.log("addition");
+            cart_item.quantity++;
+                //order_val++;
                 console.log("cart_item.quantity"+cart_item.quantity);
-                if(cart_item.quantity===2){
-         }else{
-             order_val++;
-         }
+                
                 console.log("order-val:"+order_val)
             changePrice(cart_item,1);
             $order_value.html(order_val);
@@ -172,12 +176,17 @@ function updateCart() {
                 
             }
             if(cart_item.quantity>0&&order_val>0){
-            cart_item.quantity-=1;
-           order_val-=1; 
                 changePrice(cart_item,-1);
+            cart_item.quantity--;
+           //order_val--; 
+                
                 
 //console.log("Order_val:"+order_val);
             $order_value.html(order_val);
+                if(cart_item.quantity==0){
+                     removeFromCart(cart_item);
+}
+                updateCart();
             }
             
 
@@ -192,18 +201,20 @@ function updateCart() {
                   
               
     if(cart_item.quantity>order_val){
-        order_val=0;
+        //order_val=0;
         cart_item.quantity=0;
         
     $order_value.html(order_val);}
     else{
-            order_val -= cart_item.quantity;
+            //order_val -= cart_item.quantity;
         
         changePrice(cart_item, -cart_item.quantity);
        // cart_item.quantity=0;
        // console.log("Order-val after remove"+order_val);
         $order_value.html(order_val);
+        
                   }
+                  cart_item.quantity=0;
                   removeFromCart(cart_item);
               }
                if(cart_item.quantity<0||order_val<0){
