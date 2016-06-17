@@ -19,7 +19,7 @@
         </head>
         <body>
 
-
+<div id = "wrapper">
 
            <div class =" navbar transparent navbar-nav">
 
@@ -244,6 +244,15 @@ callback(new Error("Can't find addres"));}
                                 </div>
                                 <div class="btn btn-lg btn-warning gradient" id="order-button">Замовити</div>
                                 </div>
+             <div class = "emblem-inverse">
+            <img class = "emblem-inverse-image" src="assets/images/discount.svg">
+            <div class="emblem-inverse-text">
+                <br>Цього
+                <br>тижня 
+                <br> знижка на 20%
+</div>
+        </div>
+             
               <!--  <div class = "footer container-fluid">
                     <div class = "footer-text">
                         Some text here
@@ -257,7 +266,10 @@ callback(new Error("Can't find addres"));}
 <input type="hidden" name="signature" value="hFwP65io0SpQOjTcFHChDH4lY5w=" />
 <input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" />
 </form>
-
+    </div>
+            </div>
+      
+<% include common/footer.ejs %>
 
                 <!-- jQuery JavaScript -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
@@ -267,14 +279,8 @@ callback(new Error("Can't find addres"));}
 
         <!--Own JavaScript -->
         <script type="text/javascript"  src="assets/js/main.js"> </script>
-               <div class = "emblem-inverse">
-                    <img class = "emblem-inverse-image" src="assets/images/discount.svg">
-                    <div class="emblem-inverse-text">
-                        <br>Цього
-                        <br>тижня 
-                        <br> знижка на 20%
-        </div>
-                </div>
+               
+                   
 
 
         </body>
