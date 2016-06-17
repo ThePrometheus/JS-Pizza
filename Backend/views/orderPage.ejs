@@ -242,8 +242,14 @@ callback(new Error("Can't find addres"));}
                                     <span class="total-value">Сума замовлення</span>
                                     <span class="total-price">0 грн</span>
                                 </div>
-                                <div class="btn btn-lg btn-warning gradient" id="order-button">Замовити</div>
+                                   <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/3/checkout">
+                                <button type="submit" class="btn btn-lg btn-warning gradient" id="order-button">Замовити</button>
+                                         </form>
+                                  <input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJwdWJsaWNfa2V5IjoiaTY4OTkzNjc2MDA3IiwiYW1vdW50IjoiNSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQnNC+0Lkg0YLQvtCy0LDRgCIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUifQ==" />
+<input type="hidden" name="signature" value="hFwP65io0SpQOjTcFHChDH4lY5w=" />
                                 </div>
+                                
+                                  
              <div class = "emblem-inverse">
             <img class = "emblem-inverse-image" src="assets/images/discount.svg">
             <div class="emblem-inverse-text">
@@ -261,11 +267,10 @@ callback(new Error("Can't find addres"));}
 <!--https://www.liqpay.com/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJwdWJsaWNfa2V5IjoiaTY4OTkzNjc2MDA3IiwiYW1vdW50IjoiNSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQnNC%2B0Lkg0YLQvtCy0LDRgCIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUifQ%3D%3D&signature=hFwP65io0SpQOjTcFHChDH4lY5w%3D -->
 
 
-       <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/3/checkout">
-<input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJwdWJsaWNfa2V5IjoiaTY4OTkzNjc2MDA3IiwiYW1vdW50IjoiNSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQnNC+0Lkg0YLQvtCy0LDRgCIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUifQ==" />
-<input type="hidden" name="signature" value="hFwP65io0SpQOjTcFHChDH4lY5w=" />
-<input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" />
-</form>
+      
+
+
+
     </div>
             </div>
       
