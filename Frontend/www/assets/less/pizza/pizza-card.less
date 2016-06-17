@@ -1,49 +1,62 @@
 .pizza-card {
-    float:inherit;
-	position: relative;
-	img {
-		max-width: 200px;
+  img {
+    max-width: 250px;
+      max-height:250px;
+  }
 
-	}
-	h3 {
-        font-weight:bold;
-       font-size:26px;
-		color: @mainColor;
-		background-color: lighten(@mainColor, 45%);
-	}
+  h3 {
+    color: @mainColor;
+    background-color: lighten(@mainColor, 45%);
+  }
 }
-.lg-pizza {
-	text-align: center;
+.popular-label{
+    position:absolute;
+    top:-20px;
+    left:200px;
+    width:80px;
+    text-align:center;
+    font-size:14px;
     
 }
-.sm-pizza {
-	text-align: center;
+.pizza-image .only-pizza{
+   padding:50px,50px,0px,0px;
+    width:100px;
+    height:50px;
+}
+.thumbnail{
+    margin-bottom:auto;
+    margin-bottom:40px;
+    text-align:center;
+    padding-bottom:20px;
+    display:table;
+}
+.name-of-pizza{
+    
+}
+.info{
+    text-align:left;
+}
+.type-of-pizza{
+    text-align:left;
 }
 
-.new-label {
-	position: absolute;
-	color: #fff;
-	top: -15px;
-	right: -7px;
-	font-size: 17px;
-	font-weight: bold;
-	padding: 3px 7px 3px 7px;
+
+.new-text{
+    position:relative;
+    left:0px;
+    font-weight:none;
+       text-align:center;
+    font-size:15px;
+    color:#fff;
+    
 }
-.new-label:hover {
-	color: #fff;
+.popular-text{
+    position:relative;
+    left:-11px;
+    font-weight:none;
+       text-align:center;
+    font-size:15px;
+    color:#fff;
+    
 }
-.popular-label {
-	position: absolute;
-	top: -15px;
-	right: -7px;
-	font-size: 17px;
-	font-weight: bold;
-	padding: 3px 7px 3px 7px;
-	color: #fff;
-}
-.popular-label:hover {
-	color: #fff;
-}
-.pizza-pic {
-	width: 100%;
-}
+

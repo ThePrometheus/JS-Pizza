@@ -19,13 +19,16 @@ console.log("result:"+result);
    %>
 <div class="col-md-6 col-lg-4 ">
      <div class="thumbnail pizza-card">
-        <img class="pizza-image" src="<%= pizza.icon %>" alt="Pizza">
+        <img class="pizza-image only-pizza" src="<%= pizza.icon %>" alt="Pizza">
 
         <% if(pizza.is_new) { %>
-       <div class="btn label-success gradient popular-label">Нова
+       <div class="btn label-success gradient popular-label">
+           <div class ="new-text">Нова</div>
                             </div>
         <% } else if(pizza.is_popular) { %>
-        <div class="btn label-danger gradient popular-label">Популярна
+        <div class="btn label-danger gradient popular-label">
+            <div class = "popular-text">
+                Популярна</div>
                             </div>
         <% } %>
 
