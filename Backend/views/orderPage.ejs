@@ -64,19 +64,19 @@
                         </div>
                         <!-- from ww3schoool.com http://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
                         <form class="form-horizontal" role="form">
-                            <div class="form-group">
+                            <div class="form-group name-input">
                             <label class="control-label col-sm-2" for="name">Ім'я</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email" placeholder="Ім'я Прізвище">
+                            <input type="text" class="form-control" id="name" placeholder="Ім'я Прізвище">
                                     </div>
                                     </div>
-          <div class="form-group">
+          <div class="form-group tel-input">
             <label class="control-label col-sm-2" for="telephone">Телефон</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control" id="telephone" placeholder="+380958403344">
             </div>
           </div>
-                              <div class="form-group">
+                              <div class="form-group address-input">
             <label class="control-label  col-sm-2" for="Адреса">Адреса</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control" id="address" placeholder="вул.Г.Сковороди,2">
@@ -90,6 +90,7 @@
           </div>
                             <div id="map"></div>
         </form>
+                        
         
                     </div>
                     
@@ -117,7 +118,7 @@
                 </div>
            
     <script>
-
+       
 function initialize(){
     var mapProp = {
         center:new google.maps.LatLng(50.464379,30.519131),
@@ -189,7 +190,31 @@ callback(new Error("Can't find addres"));}
 }
             
      google.maps.event.addDomListener(window,'load',initialize);   
-        
+        $("#name").val( "new value here" );
+         function validateName(){
+            var pattern=/^[а-яА-Яa-zA-Z]+$/;
+            var input = $("#name").val();
+            if(pattern.test(input)){
+            $(".name-group").addClass(".has-success");
+                
+}else{
+    $(".name-group").addClass(".has-error");
+alert("222");}
+            
+        }
+        $("#name").on('input',validateName);
+        function validatePhone(){
+            var pattern=/^[а-яА-Яa-zA-Z]+$/;
+            var input = $("#telephone").val();
+            if(pattern.test(input)){
+            alert(":::");
+}else{
+alert("222");}
+            
+        }
+        $("#telephone").on('input',validatePhone);
+
+
 
     </script>
    
