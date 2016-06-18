@@ -138,6 +138,11 @@ function initialize(){
             map:map,
             icon:"assets/images/map-icon.png"
         });
+    var consumerMarker = new google.maps.Marker({
+        position:point,
+        
+        icon:"assets/images/home-icon.png"
+    });
     console.log("Map:"+map);
     console.log("Point:"+point);
     map.addListener("click",function(me){
@@ -152,7 +157,9 @@ function initialize(){
                     $("#address-error").html("Адреса неправильна");
                      
                  } else {                   
-                     var consumerMarker= new google.maps.Marker({position:me.latLng,map:map,icon:"assets/images/home-icon.png"});
+                     consumerMarker.position=me.latLng;
+                     consumerMarker.setMap(map);
+                     
                      console.log("Position:"+consumerMarker.position);
                     $(".info-about-order-address-res").html(address); 
                      calculateRoute(point,consumerMarker.position,function(error,route){
