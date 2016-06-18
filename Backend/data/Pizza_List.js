@@ -9,7 +9,7 @@ var pizza_info = [
         title: "Імпреза",
         type: "М'ясні",
         content: {
-            meat: ['hhhh', 'салямі'],
+            meat: ['яловичина', 'салямі'],
             chicken: ['куриця'],
             cheese: ['сир моцарелла', 'сир рокфорд'],
             pineapple: ['ананаси'],

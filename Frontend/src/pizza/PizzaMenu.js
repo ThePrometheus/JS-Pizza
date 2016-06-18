@@ -5,14 +5,17 @@ var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart')
 var Pizza_List = require('../Pizza_List');
 var api = require('../API');
-function getPizzas(err, data) {
-    if (!err)
-        Pizza_List = data;
-}
 
-api.getPizzaList(function (err, data) {
-    if (!err)
+
+api.getPizzaList(function (err,data) {
+    if (!err){
         Pizza_List = data;
+        console.log("from server1:"+data);
+    }else{
+        console.log("No reply form server");
+           console.log("from server2:"+data);
+    }
+       console.log("from server3:"+data);
 });
 
 

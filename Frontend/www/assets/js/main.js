@@ -274,6 +274,8 @@ var Cart = [];
 //HTML едемент куди будуть додаватися піци
 var $cart = $(".order-list");
 var $order=$(".total-price");
+var orderBool=1;
+
 
 
 function addToCart(pizza, size) {
@@ -329,7 +331,7 @@ function removeFromCart(cart_item) {
 }
 
 function initialiseCart() {
-
+ //orderBool=true;
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
     //TODO: ...
@@ -352,12 +354,20 @@ Cart	=	saved_orders;
     
 
     updateCart();}
-    
+    if(orderBool%2==1){
     $("#clean-to-buy-text").click(function(){
         $order.html(0 +"грн");
         Cart= [];
         updateCart();
         
+    }); 
+    }
+    $("#order-button").click(function(){
+       orderBool++; 
+        alert(orderBool);
+    });
+    $("#order-button-2").click(function(){
+        orderBool++;
     });
 }
 
@@ -409,7 +419,7 @@ function updateCart() {
       
 //console.log($node);
        // order_val++;
-       
+       if(orderBool%2==1){
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
             if(cart_item.quantity>0){
@@ -488,6 +498,13 @@ function updateCart() {
                       
         updateCart();
         });
+       }if(orderBool%2==0){
+           alert("delete");
+          $node.find(".delete-button").hide();
+           $node.find(".subtract-button").hide();
+           $node.find(".add-button").hide();
+           
+       }
         
         
         
@@ -516,14 +533,17 @@ var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart')
 var Pizza_List = require('../Pizza_List');
 var api = require('../API');
-function getPizzas(err, data) {
-    if (!err)
-        Pizza_List = data;
-}
 
-api.getPizzaList(function (err, data) {
-    if (!err)
+
+api.getPizzaList(function (err,data) {
+    if (!err){
         Pizza_List = data;
+        console.log("from server1:"+data);
+    }else{
+        console.log("No reply form server");
+           console.log("from server2:"+data);
+    }
+       console.log("from server3:"+data);
 });
 
 

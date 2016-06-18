@@ -11,6 +11,7 @@
   "dependencies": {
     "basil.js": "^0.4.3",
     "brfs": "^1.4.3",
+    "crypto": "0.0.3",
     "ejs": "^2.4.1",
     "express": "^4.14.0",
     "grunt": "^0.4.5",

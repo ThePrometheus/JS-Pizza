@@ -125,6 +125,7 @@
        var map = "";
         var point= "";
         var marker= "";
+        var directionsDisplay = new google.maps.DirectionsRenderer;
 function initialize(){
     var mapProp = {
         center:new google.maps.LatLng(50.464379,30.519131),
@@ -145,6 +146,8 @@ function initialize(){
     });
     console.log("Map:"+map);
     console.log("Point:"+point);
+     
+    directionsDisplay.setMap(map);
     map.addListener("click",function(me){
             console.log("Map listener:"+map);
     console.log("Point listener:"+point);
@@ -211,6 +214,7 @@ callback(new Error("Can't find addres"));}
             function calculateRoute(A_latLng,B_latLng,callback){
                 console.log("calculaterRoute");
     var directionService = new google.maps.DirectionsService();
+               
     directionService.route({
         origin:A_latLng,
         destination:B_latLng,
@@ -223,6 +227,7 @@ callback(new Error("Can't find addres"));}
                
                 
             });
+            directionsDisplay.setDirections(response);
         }else{
             console.log("status fails");
             callback(new Error("Can't find direction"));
@@ -297,9 +302,7 @@ alert("Not time");}else{
                                         <div id = "order-value">0</div>
                                         </span>
                             </div>
-                                <div id="clean-to-buy-text">
-                                    Очистити замовлення
-                            </div>
+                                
                             </div>
 
                             <div class="order-list">
@@ -314,11 +317,12 @@ alert("Not time");}else{
                                     <span class="total-value">Сума замовлення</span>
                                     <span class="total-price">0 грн</span>
                                 </div>
-                                   <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/3/checkout">
-                                <button type="submit" class="btn btn-lg btn-warning gradient" id="order-button">Замовити</button>
+                                  <!-- <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/3/checkout">
+                                <button type="submit" class="btn btn-lg btn-default" id="order-button-2">Редагувати</button>
                                          </form>
                                   <input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJwdWJsaWNfa2V5IjoiaTY4OTkzNjc2MDA3IiwiYW1vdW50IjoiNSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQnNC+0Lkg0YLQvtCy0LDRgCIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUifQ==" />
-<input type="hidden" name="signature" value="hFwP65io0SpQOjTcFHChDH4lY5w=" />
+<input type="hidden" name="signature" value="hFwP65io0SpQOjTcFHChDH4lY5w=" /> -->
+                                    <a class="btn btn-lg btn-default" href = "/" button type="submit"  id="order-button-2">Редагувати</a>
                                 </div>
                                 
                                   
@@ -345,11 +349,18 @@ alert("Not time");}else{
 
     </div>
             </div>
-      
+     <!-- <div id="liqpay"></div> -->
 <% include common/footer.ejs %>
             <script >
-                
+                $( document ).ready(function() {
+                    alert('i ');
+  $(".add-button").remove();
+                $(".delete-button").remove();
+                $(".subtract-button").remove();
+ 
+});
 //$("#name").val( "new value here" );
+               
          function validateName(){
             var pattern=/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/;
              
@@ -396,11 +407,18 @@ alert("Not time");}else{
                     
                     
 });
+     
+                
+                
+                
+                
+                
                 google.maps.event.addDomListener(window,'load',initialize); 
                 
 
             </script>
-
+<script src="//static.liqpay.com/libjs/checkout.js">
+</script>
                 <!-- jQuery JavaScript -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
 
