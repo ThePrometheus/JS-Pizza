@@ -69,14 +69,17 @@
                             <div class="col-sm-10">
                             <input type="text" class="form-control" id="name" placeholder="Ім'я Прізвище">
                                     </div>
+                                <div id= "name-error"></div>
                                     </div>
-          <div class="form-group tel-input">
+          <div class="form-group"id="tel-input">
             <label class="control-label col-sm-2" for="telephone">Телефон</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control" id="telephone" placeholder="+380958403344">
             </div>
+ <div id= "tel-error"></div>
           </div>
-                              <div class="form-group address-input">
+                              <div class="form-group"id= 
+"address-input">
             <label class="control-label  col-sm-2" for="Адреса">Адреса</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control" id="address" placeholder="вул.Г.Сковороди,2">
@@ -284,32 +287,45 @@ callback(new Error("Can't find addres"));}
         });
 //$("#name").val( "new value here" );
          function validateName(){
-            var pattern=/^[а-яА-Яa-zA-Z]+$/;
+            var pattern=/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/;
              
             var input = $("#name").val();
              console.log(pattern +input);
             if(pattern.test(input)){
+                $("#tel-input").removeClass("has-error");
             $("#name-input").addClass("has-success");
+                $("#name-error").html("");
               console.log(pattern.test(input));  
 }else{
      console.log(pattern.test(input));  
+   
     $("#name-input").addClass("has-error");
     $("#name-input").removeClass("has-success");
+   $('#name-error').html("Введіть ім'я  тільки з літер ");
+    //$('#name-error').addClass("has-success");
 }
             
         }
         $("#name").on('input',validateName);
+                
+                
         function validatePhone(){
-            var pattern=/^[0-9]+$/;
+            var pattern=/^\+[0-9]{12}|0[0-9]{9}$/;
             var input = $("#telephone").val();
             if(pattern.test(input)){
-                
-         
+                $("#tel-input").removeClass("has-error");
+           $("#tel-input").addClass("has-success");
+              console.log(pattern.test(input));  
 }else{
+     console.log(pattern.test(input));  
+    $("#tel-input").addClass("has-error");
+    $("#tel-input").removeClass("has-success");
+     $('#tel-error').html("Введіть номер починаючи з +380 чи 0 ");
 }
             
         }
         $("#telephone").on('input',validatePhone);
+                
 
             </script>
 
