@@ -64,7 +64,7 @@
                         </div>
                         <!-- from ww3schoool.com http://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
                         <form class="form-horizontal" role="form">
-                            <div class="form-group name-input">
+                            <div class="form-group "id= "name-input">
                             <label class="control-label col-sm-2" for="name">Ім'я</label>
                             <div class="col-sm-10">
                             <input type="text" class="form-control" id="name" placeholder="Ім'я Прізвище">
@@ -189,31 +189,8 @@ callback(new Error("Can't find addres"));}
     });
 }
             
-     google.maps.event.addDomListener(window,'load',initialize);   
-        $("#name").val( "new value here" );
-         function validateName(){
-            var pattern=/^[а-яА-Яa-zA-Z]+$/;
-            var input = $("#name").val();
-            if(pattern.test(input)){
-            $(".name-group").addClass(".has-success");
-                
-}else{
-    $(".name-group").addClass(".has-error");
-alert("222");}
-            
-        }
-        $("#name").on('input',validateName);
-        function validatePhone(){
-            var pattern=/^[а-яА-Яa-zA-Z]+$/;
-            var input = $("#telephone").val();
-            if(pattern.test(input)){
-            alert(":::");
-}else{
-alert("222");}
-            
-        }
-        $("#telephone").on('input',validatePhone);
-
+     google.maps.event.addDomListener(window,'load',initialize); 
+       
 
 
     </script>
@@ -300,6 +277,41 @@ alert("222");}
             </div>
       
 <% include common/footer.ejs %>
+            <script >
+                 $(document).ready(function(){
+            
+           
+        });
+//$("#name").val( "new value here" );
+         function validateName(){
+            var pattern=/^[а-яА-Яa-zA-Z]+$/;
+             
+            var input = $("#name").val();
+             console.log(pattern +input);
+            if(pattern.test(input)){
+            $("#name-input").addClass("has-success");
+              console.log(pattern.test(input));  
+}else{
+     console.log(pattern.test(input));  
+    $("#name-input").addClass("has-error");
+    $("#name-input").removeClass("has-success");
+}
+            
+        }
+        $("#name").on('input',validateName);
+        function validatePhone(){
+            var pattern=/^[0-9]+$/;
+            var input = $("#telephone").val();
+            if(pattern.test(input)){
+                
+         
+}else{
+}
+            
+        }
+        $("#telephone").on('input',validatePhone);
+
+            </script>
 
                 <!-- jQuery JavaScript -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
