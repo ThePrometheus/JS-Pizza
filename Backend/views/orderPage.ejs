@@ -153,12 +153,17 @@ function initialize(){
                      
                  } else {                   
                      var consumerMarker= new google.maps.Marker({position:me.latLng,map:map,icon:"assets/images/home-icon.png"});
-                     alert("Position:"+consumerMarker.position);
-                    $("#info-about-address-res").html(address); 
+                     console.log("Position:"+consumerMarker.position);
+                    $(".info-about-order-address-res").html(address); 
                      calculateRoute(point,consumerMarker.position,function(error,route){
                          if(error){
+                             console.log('Route error');
+                             
 }else{
-    $(".info-about-order-item-res").html(route.duration.value);
+    console.log("Route value:"+route.duration.value);
+    var min = Math.floor(route.duration.value/60);
+    var sec =route.duration.value%60;
+    $(".info-about-order-time-res").html(min+" хв " +sec +"сек");
 }
                          
                      });
@@ -196,19 +201,23 @@ callback(new Error("Can't find addres"));}
 }
                 });
 } 
-            function calculateRoute( A_latLng,B_latLng,callback){
+            function calculateRoute(A_latLng,B_latLng,callback){
                 console.log("calculaterRoute");
     var directionService = new google.maps.DirectionsService();
     directionService.route({
         origin:A_latLng,
         destination:B_latLng,
         travelMode:google.maps.TravelMode["DRIVING"]},function(response,status){
-        if(status== google.maps.DirectionsService.OK){
+        if(status===google.maps.DirectionsStatus.OK){
             var leg = response.routes[0].legs[0];
+            console.log("Direction Service:"+leg.duration);
             callback(null,{
                 duration:leg.duration
+               
+                
             });
         }else{
+            console.log("status fails");
             callback(new Error("Can't find direction"));
         }
     
