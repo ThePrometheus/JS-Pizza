@@ -226,7 +226,7 @@ exports.get = function(key){
 exports.set = function(key,value){
 	return basil.set(key,value);
 };
-},{"basil.js":8}],4:[function(require,module,exports){
+},{"basil.js":9}],4:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -238,7 +238,7 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(
 
 exports.PizzaCart_OneItem = ejs.compile("<div class=\"pizza-ordered\">\r\n\r\n                            <img class=\"pizza-image-list\" src=\"<%=  pizza.icon %>\" />\r\n                            <div class=\"ordered-pizza-name\">\r\n                                <p><%= pizza.title %></p>\r\n\r\n\r\n\r\n\r\n\r\n                                <div class=\"ordered-size\">\r\n                                    <img  class =\"pizza-image\" src=\"assets/images/size-icon.svg\" />\r\n                                    <% if(size==\"small_size\"){  %>\r\n                                    <span class=\"size\"><%= pizza.small_size.size %></span>\r\n                                    <span class=\"weight\"><%= pizza.small_size.weight %></span>\r\n\r\n<% } %>\r\n                                    <% if(size==\"big_size\"){ %>\r\n                                    <span class=\"size\"><%= pizza.big_size.size %></span>\r\n                                    <span class=\"weight\"><%=  pizza.big_size.weight %></span>\r\n\r\n<% } %>\r\n                                    <img class =\"pizza-image\"  src=\"assets/images/weight.svg\" />\r\n                                   \r\n                                </div>\r\n                                 <div class=\"order-text\">\r\n                                      \r\n                                     <%  if(size==\"small_size\"){  %>\r\n                                <span class=\"ordered-price\"><%=  pizza.small_size.price %></span>\r\n<% } %>\r\n                                              <% if(size==\"big_size\"){  %>\r\n                                <span class=\"ordered-price\"><%= pizza.big_size.price %></span>\r\n<% } %>\r\n                                <a class=\"btn btn-xs btn-danger subtract-button\" href=\"#\">\r\n                                    <span class=\"glyphicon glyphicon-minus\">\r\n                                    </span>\r\n                                </a>\r\n                                <div class=\"badCounter\"><%= quantity %> </div>\r\n                                <a class=\"btn btn-xs btn-success gradient add-button\" href=\"#\">\r\n                                    <span class=\"glyphicon glyphicon-plus\"></span></a>\r\n                                <a class=\"btn btn-xs btn-default circle-btn delete-button\" href=\"#\">\r\n                                    <span class=\"glyphicon glyphicon-remove\"></span></a>\r\n                            </div>\r\n\r\n\r\n                           </div>     \r\n\r\n\r\n\r\n\r\n                        </div>");
 
-},{"ejs":9}],5:[function(require,module,exports){
+},{"ejs":10}],5:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -248,13 +248,336 @@ $(function(){
     var PizzaMenu = require('./pizza/PizzaMenu');
     var PizzaCart = require('./pizza/PizzaCart');
     var Pizza_List = require('./Pizza_List');
+    var OrderPage = require('./pizza/OrderPage');
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
 
 
 });
-},{"./Pizza_List":2,"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7}],6:[function(require,module,exports){
+},{"./Pizza_List":2,"./pizza/OrderPage":6,"./pizza/PizzaCart":7,"./pizza/PizzaMenu":8}],6:[function(require,module,exports){
+
+var PizzaCart = require('./PizzaCart');
+var api = require('../API');
+      
+       
+ var  LIQPAY_PRIVATE_KEY='i68993676007';
+var LIQPAY_PUBLIC_KEY= 'zpmWpK5LVi4dhCdRJvzUbH6JmPcfJ8BuZftXU5zv';
+function initialize(){
+    console.log("inside init");
+    var mapProp = {
+        center:new google.maps.LatLng(50.464379,30.519131),
+        zoom:11};
+    console.log("created map prop");
+    var html_element= document.getElementById("map");
+    var map = new google.maps.Map(html_element,mapProp);
+    
+       var  point = new google.maps.LatLng(50.464379,30.519131);
+       var  marker= new google.maps.Marker({
+            position:point,
+            map:map,
+            icon:"assets/images/map-icon.png"
+        });
+    var consumerMarker = new google.maps.Marker({
+        position:point,
+        
+        icon:"assets/images/home-icon.png"
+    });
+    console.log("Map:"+map);
+    console.log("Point:"+point);
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+    directionsDisplay.setOptions( { suppressMarkers: true } );
+    map.addListener("click",function(me){
+            console.log("Map listener:"+map);
+    console.log("Point listener:"+point);
+          
+            var coordinates = me.latLng;
+        console.log("coords"+coordinates);
+             geocodeLatLng(coordinates,function(error,address){
+                 if(error){
+                     
+                    $("#address-error").html("Адреса неправильна");
+                     
+                 } else {                   
+                     consumerMarker.position=me.latLng;
+                     consumerMarker.setMap(map);
+                     
+                     console.log("Position:"+consumerMarker.position);
+                    $(".info-about-order-address-res").html(address); 
+                     calculateRoute(point,consumerMarker.position,function(error,route){
+                         if(error){
+                             console.log('Route error');
+                             
+}else{
+    console.log("Route value:"+route.duration.value);
+    var min = Math.floor(route.duration.value/60);
+    var sec =route.duration.value%60;
+    $(".info-about-order-time-res").html(min+" хв " +sec +"сек");
+}
+                         
+                     });
+                     
+                 }
+             });
+        
+    });
+
+       // marker.setMap(null);
+
+      
+        function geocodeLatLng(latLng,callback){
+            console.log("Goecode latLng");
+            var geocoder =new google.maps.Geocoder();
+            geocoder.geocode({'location':latLng},function(results,status){
+                if(status === google.maps.GeocoderStatus.OK && results[1]){
+                    var address= results[1].formatted_address;
+                    callback(null,address);
+                    
+                }else{
+callback(new Error("Can't find addres"));}
+            } );
+        }
+              
+            function geocodeAddress(address,callback){
+                console.log("geocodeAddress");
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'address':address},function(results,status){
+                    if(status===google.maps.GeocoderStatus.OK&&results[0]){
+                        var coordinates = results[0].geometry.location;
+                        callback(null,coordinates);
+}else{
+    callback(new Error("Can't find address"));
+}
+                });
+} 
+            function calculateRoute(A_latLng,B_latLng,callback){
+                console.log("calculaterRoute");
+    var directionService = new google.maps.DirectionsService();
+               
+    directionService.route({
+        origin:A_latLng,
+        destination:B_latLng,
+        travelMode:google.maps.TravelMode["DRIVING"]},function(response,status){
+        if(status===google.maps.DirectionsStatus.OK){
+            var leg = response.routes[0].legs[0];
+            console.log("Direction Service:"+leg.duration);
+            callback(null,{
+                duration:leg.duration
+               
+                
+            });
+            directionsDisplay.setDirections(response);
+        }else{
+            console.log("status fails");
+            callback(new Error("Can't find direction"));
+        }
+    
+    });
+}
+           console.log("Script map"+map); 
+     
+         google.maps.event.addListener(map,'click',function(me){
+              console.log("Map listener:"+map);
+    console.log("Point listener:"+point);
+             alert("Clicked");
+            var coordinates = me.latLng;
+             geocodeLatLng(coordinates,function(error,address){
+                 if(error){
+                     alert("Адреса неправильна !");
+                    $("#address-error").html("Адреса неправильна");
+                     
+                 } else {                   
+                     var consumerMarker= new google.maps.Marker({position:me.latLng,map:map,icon:"assets/images/home-icon.png"});
+                     alert("Position:"+consumerMarker.position);
+                    $("#info-about-address-res").html(address); 
+                     calculateRoute(point,consumerMarker.position,function(error,route){
+                         if(error){
+alert("Not time");}else{
+    $(".info-about-order-item-res").html(route.duration.value);
+}
+                         
+                     });
+                     
+                 }
+             });
+         });
+                 
+
+            
+    
+
+
+                $( document ).ready(function() {
+                    alert('i ');
+  $(".add-button").remove();
+                $(".delete-button").remove();
+                $(".subtract-button").remove();
+ 
+});
+//$("#name").val( "new value here" );
+               
+         function validateName(){
+            var pattern=/^[A-Za-z-Яа-я\s]{1,}[\.]{0,1}[A-Za-zА-Яа-я\s]{0,}$/;
+             
+            var input = $("#name").val();
+             console.log(pattern +input);
+            if(pattern.test(input)){
+                $("#name-input").removeClass("has-error");
+            $("#name-input").addClass("has-success");
+                $("#name-error").html("");
+              console.log(pattern.test(input));  
+}else{
+     console.log(pattern.test(input));  
+   
+    $("#name-input").addClass("has-error");
+    $("#name-input").removeClass("has-success");
+   $('#name-error').html("Введіть ім'я  тільки з літер ");
+    //$('#name-error').addClass("has-success");
+}
+            
+        }
+        $("#name").on('input',validateName);
+                
+                
+        function validatePhone(){
+            var pattern=/^\+[0-9]{12}|0[0-9]{9}$/;
+            var input = $("#telephone").val();
+            if(pattern.test(input)){
+                $("#tel-input").removeClass("has-error");
+           $("#tel-input").addClass("has-success");
+                 $('#tel-error').html("");
+
+              console.log(pattern.test(input));  
+}else{
+     console.log(pattern.test(input));  
+    $("#tel-input").addClass("has-error");
+    $("#tel-input").removeClass("has-success");
+     $('#tel-error').html("Введіть номер починаючи з +380 чи 0 ");
+}
+            
+        }
+        $("#telephone").on('input',validatePhone);
+                function validateAddress(){
+                    var input= $("#address").val();
+                    geocodeAddress(input,function(err,data){
+                        if(err){
+console.log("can't get coordinates form that address");}else{
+    console.log("Coords accepted");
+    var coords = data;
+     geocodeLatLng(coords,function(error,address){
+                 if(error){
+                      $("#address-input").removelass("has-success");
+                     $("address-input").addClass("has-error");
+                     $("#address-error").css("color","#a94442");
+                    $("#address-error").html("формат адреси (бульвар Перова,3,Київ)");
+                     
+                 } else {   
+                     $("#address-error").html(address);
+                     $("#address-input").addClass("has-success");
+                     $("address-input").removeClass("has-error");
+                     $("#address-error").css("color","#3c763d");
+                     consumerMarker.position=coords;
+                     consumerMarker.setMap(map);
+                     
+                     console.log("Position:"+consumerMarker.position);
+                    $(".info-about-order-address-res").text(address); 
+                     calculateRoute(point,consumerMarker.position,function(error,route){
+                         if(error){
+                             console.log('Route error');
+                             
+}else{
+    console.log("Route value:"+route.duration.value);
+    var min = Math.floor(route.duration.value/60);
+    var sec =route.duration.value%60;
+    $(".info-about-order-time-res").html(min+" хв " +sec +"сек");
+}
+                         
+                     });
+                     
+                 }
+             });
+    
+}
+                    })
+                    
+};
+                $("#address").on('input',validateAddress);
+                
+                $(".next-button").click(function(){
+                    alert("I am alive");
+                    alert($(".info-about-order-address-res").text());
+                    alert($("#telephone").val());
+                    alert($("#name").val());
+                    if($(".info-about-order-address-res").text()&& $("#telephone").val()&&$("#name").val()){
+                        var address= $("#info-about-order-address-res").text();
+                        var telephone = $("#telephone").val();
+                        var name= $("#name").val();
+                        api.createOrder(PizzaCart.getPizzaInCart(),function(err,data){
+                            if(!err){
+                               alert("Link?"); createOrder(PizzaCart.getPizzaInCart(),address,telephone,name);
+                                alert("Created order");
+                            }else{
+                                alert("Error api");
+                                console.log("Can't create order");
+                            }
+});
+                        
+                    }else{
+                        alert("Some of the values are missing ");
+                    }
+                    
+                    
+                    
+});
+            function createOrder(list,address,telephone,name){
+                var dat="Name:"+name+"Telephone:"+telephone+"Address:"+address;
+                var total_price= parseInt($(".total-price").val());
+                list.forEach(function(cart_item,index,list){
+                    data +="pizza"+cart_item.title+"size"+cart_item.size +"quantity:"+cart_item.quantity;
+                    
+                }); 
+                var order = {
+version: 3,
+public_key: LIQPAY_PUBLIC_KEY,
+action: "pay",
+amount: total_price,
+currency: "UAH",
+description: dat,
+order_id: Math.random(),
+//!!!Важливо щоб було 1, бо інакше візьме гроші!!!
+sandbox: 1
+};
+var data = base64(JSON.stringify(dat));
+var signature = sha1(LIQPAY_PRIVATE_KEY + data + LIQPAY_PRIVATE_KEY);
+                
+            LiqPayCheckout.init({
+data: data,
+signature: signature,
+embedTo: "#liqpay",
+mode: "popup" // embed || popup
+}).on("liqpay.callback", function(data){
+console.log(data.status);
+console.log(data);
+}).on("liqpay.ready", function(data){
+// ready
+}).on("liqpay.close", function(data){
+//    
+                
+});
+           
+      }
+     
+                
+                
+                
+          }      
+                
+                google.maps.event.addDomListener(window,'load',initialize); 
+                
+
+            
+},{"../API":1,"./PizzaCart":7}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -525,7 +848,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../Storage":3,"../Templates":4}],7:[function(require,module,exports){
+},{"../Storage":3,"../Templates":4}],8:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -657,7 +980,7 @@ function initialiseMenu() {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../API":1,"../Pizza_List":2,"../Templates":4,"./PizzaCart":6}],8:[function(require,module,exports){
+},{"../API":1,"../Pizza_List":2,"../Templates":4,"./PizzaCart":7}],9:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -1026,7 +1349,7 @@ exports.initialiseMenu = initialiseMenu;
 
 })();
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1787,7 +2110,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":11,"./utils":10,"fs":12,"path":13}],10:[function(require,module,exports){
+},{"../package.json":12,"./utils":11,"fs":13,"path":14}],11:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1930,7 +2253,7 @@ exports.cache = {
 };
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -2014,9 +2337,9 @@ module.exports={
   "directories": {}
 }
 
-},{}],12:[function(require,module,exports){
-
 },{}],13:[function(require,module,exports){
+
+},{}],14:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2244,7 +2567,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":14}],14:[function(require,module,exports){
+},{"_process":15}],15:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
