@@ -249,10 +249,12 @@ $(function(){
     var PizzaCart = require('./pizza/PizzaCart');
     var Pizza_List = require('./Pizza_List');
     var OrderPage = require('./pizza/OrderPage');
+     PizzaCart.initialiseCart();
+OrderPage.initialization();
 
-    PizzaCart.initialiseCart();
+   
     PizzaMenu.initialiseMenu();
-
+   
 
 });
 },{"./Pizza_List":2,"./pizza/OrderPage":6,"./pizza/PizzaCart":7,"./pizza/PizzaMenu":8}],6:[function(require,module,exports){
@@ -262,10 +264,14 @@ var PizzaCart = require('./PizzaCart');
 var api = require('../API');
       
         var crypto = require('crypto');
-
+function initialization() {
+   
  var  LIQPAY_PRIVATE_KEY='zpmWpK5LVi4dhCdRJvzUbH6JmPcfJ8BuZftXU5zv';
 var LIQPAY_PUBLIC_KEY= 'i68993676007';
 function initialize(){
+  $('#to-buy-list').on('click', '.add-button', function() {
+   // alert( "It works");
+});
     console.log("inside init");
     var mapProp = {
         center:new google.maps.LatLng(50.464379,30.519131),
@@ -307,6 +313,10 @@ function initialize(){
                      
                      console.log("Position:"+consumerMarker.position);
                     $(".info-about-order-address-res").html(address); 
+                     $("#address").val(address);
+                     $("#address-input").addClass("has-success");
+                     $("#address-input").removeClass("has-error");
+                     
                      calculateRoute(point,consumerMarker.position,function(error,route){
                          if(error){
                              console.log('Route error');
@@ -382,20 +392,20 @@ callback(new Error("Can't find addres"));}
          google.maps.event.addListener(map,'click',function(me){
               console.log("Map listener:"+map);
     console.log("Point listener:"+point);
-             alert("Clicked");
+             //alert("Clicked");
             var coordinates = me.latLng;
              geocodeLatLng(coordinates,function(error,address){
                  if(error){
-                     alert("Адреса неправильна !");
+                   
                     $("#address-error").html("Адреса неправильна");
                      
                  } else {                   
                      var consumerMarker= new google.maps.Marker({position:me.latLng,map:map,icon:"assets/images/home-icon.png"});
-                     alert("Position:"+consumerMarker.position);
+                     
                     $("#info-about-address-res").html(address); 
                      calculateRoute(point,consumerMarker.position,function(error,route){
                          if(error){
-alert("Not time");}else{
+}else{
     $(".info-about-order-item-res").html(route.duration.value);
 }
                          
@@ -411,7 +421,7 @@ alert("Not time");}else{
 
 
                 $( document ).ready(function() {
-                    alert('i ');
+                   
   $(".add-button").remove();
                 $(".delete-button").remove();
                 $(".subtract-button").remove();
@@ -507,26 +517,23 @@ console.log("can't get coordinates form that address");}else{
                 $("#address").on('input',validateAddress);
                 
                 $(".next-button").click(function(){
-                    alert("I am alive");
-                    alert($(".info-about-order-address-res").text());
-                    alert($("#telephone").val());
-                    alert($("#name").val());
+                    
                     if($(".info-about-order-address-res").text()&& $("#telephone").val()&&$("#name").val()){
                         var address= $(".info-about-order-address-res").text();
                         var telephone = $("#telephone").val();
                         var name= $("#name").val();
                         api.createOrder(PizzaCart.getPizzaInCart(),function(err,data){
                             if(!err){
-                               alert("Link?"); saveOrder(PizzaCart.getPizzaInCart(),address,telephone,name);
-                                alert("Created order");
+                               saveOrder(PizzaCart.getPizzaInCart(),address,telephone,name);
+                                
                             }else{
-                                alert("Error api");
+                           
                                 console.log("Can't create order");
                             }
 });
                         
                     }else{
-                        alert("Some of the values are missing ");
+                       
                     }
                     
                     
@@ -535,16 +542,16 @@ console.log("can't get coordinates form that address");}else{
     
    
             function saveOrder(list,address,telephone,name){
-                alert("Here:");
+                
                 var dat="Name:"+name+"Telephone:"+telephone+"Address:"+address+":";
-                alert(dat);
+               
                 var total_price= parseInt($(".total-price").text());
-                 alert(total_price);
+                 
                 list.forEach(function(cart_item,index,list){
                     data +="pizza"+cart_item.title+"size"+cart_item.size +"quantity:"+cart_item.quantity;
                     
                 }); 
-                 alert("pre-order");
+                
                 var num=1;
                 var order = {
 version: 3,
@@ -557,6 +564,10 @@ order_id: Math.random(),
 //!!!Важливо щоб було 1, бо інакше візьме гроші!!!
 sandbox: 1
 };
+                 
+                $(".add-button").prop("disabled",true);
+                $(".subtract-button").prop("disabled",true);
+                $(".delete-button").prop("disabled",true);
                 
                 function sha1(string) {
 var sha1 = crypto.createHash('sha1');
@@ -566,10 +577,10 @@ return sha1.digest('base64');
     function base64(str) {
 return new Buffer(str).toString('base64');
 }
-                 alert("after-order"+LIQPAY_PUBLIC_KEY+LIQPAY_PRIVATE_KEY);
+                
 var data = base64(JSON.stringify(order));
 var signature = sha1(LIQPAY_PRIVATE_KEY + data + LIQPAY_PRIVATE_KEY);
-                 alert("checkout");
+                
             LiqPayCheckout.init({
 data: data,
 signature: signature,
@@ -594,7 +605,10 @@ console.log(data);
                 
                 google.maps.event.addDomListener(window,'load',initialize); 
                 
+} 
 
+
+exports.initialization = initialization;
             
 }).call(this,require("buffer").Buffer)
 },{"../API":1,"./PizzaCart":7,"buffer":15,"crypto":19}],7:[function(require,module,exports){
@@ -679,6 +693,7 @@ function initialiseCart() {
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
     //TODO: ...
     var saved_orders =	Storage.get('cart');
+    alert(saved_orders);
 if(saved_orders)	{
     order_val=0;
 Cart	=	saved_orders;
@@ -707,7 +722,7 @@ Cart	=	saved_orders;
     }
     $("#order-button").click(function(){
        orderBool++; 
-        alert(orderBool);
+        
     });
     $("#order-button-2").click(function(){
         orderBool++;
@@ -762,7 +777,7 @@ function updateCart() {
       
 //console.log($node);
        // order_val++;
-       if(orderBool%2==1){
+   
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
             if(cart_item.quantity>0){
@@ -841,11 +856,11 @@ function updateCart() {
                       
         updateCart();
         });
-       }if(orderBool%2==0){
-           alert("delete");
-          $node.find(".delete-button").hide();
-           $node.find(".subtract-button").hide();
-           $node.find(".add-button").hide();
+       if(window.location.pathname=="/order"){
+          
+          $node.find(".delete-button").css("visibility","hidden");
+           $node.find(".subtract-button").css("visibility","hidden");
+           $node.find(".add-button").css("visibility","hidden");
            
        }
         
@@ -882,6 +897,8 @@ api.getPizzaList(function (err,data) {
     if (!err){
         Pizza_List = data;
         console.log("from server1:"+data);
+        initialiseMenu();
+       PizzaCart.initialiseCart();
     }else{
         console.log("No reply form server");
            console.log("from server2:"+data);

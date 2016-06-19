@@ -8,9 +8,11 @@ $(function(){
     var PizzaCart = require('./pizza/PizzaCart');
     var Pizza_List = require('./Pizza_List');
     var OrderPage = require('./pizza/OrderPage');
+     PizzaCart.initialiseCart();
+OrderPage.initialization();
 
-    PizzaCart.initialiseCart();
+   
     PizzaMenu.initialiseMenu();
-
+   
 
 });

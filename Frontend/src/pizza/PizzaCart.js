@@ -79,6 +79,7 @@ function initialiseCart() {
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
     //TODO: ...
     var saved_orders =	Storage.get('cart');
+    alert(saved_orders);
 if(saved_orders)	{
     order_val=0;
 Cart	=	saved_orders;
@@ -107,7 +108,7 @@ Cart	=	saved_orders;
     }
     $("#order-button").click(function(){
        orderBool++; 
-        alert(orderBool);
+        
     });
     $("#order-button-2").click(function(){
         orderBool++;
@@ -162,7 +163,7 @@ function updateCart() {
       
 //console.log($node);
        // order_val++;
-       if(orderBool%2==1){
+   
         $node.find(".add-button").click(function(){
             //Збільшуємо кількість замовлених піц
             if(cart_item.quantity>0){
@@ -241,11 +242,11 @@ function updateCart() {
                       
         updateCart();
         });
-       }if(orderBool%2==0){
-           alert("delete");
-          $node.find(".delete-button").hide();
-           $node.find(".subtract-button").hide();
-           $node.find(".add-button").hide();
+       if(window.location.pathname=="/order"){
+          
+          $node.find(".delete-button").css("visibility","hidden");
+           $node.find(".subtract-button").css("visibility","hidden");
+           $node.find(".add-button").css("visibility","hidden");
            
        }
         

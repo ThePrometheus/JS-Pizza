@@ -11,6 +11,8 @@ api.getPizzaList(function (err,data) {
     if (!err){
         Pizza_List = data;
         console.log("from server1:"+data);
+        initialiseMenu();
+       PizzaCart.initialiseCart();
     }else{
         console.log("No reply form server");
            console.log("from server2:"+data);
