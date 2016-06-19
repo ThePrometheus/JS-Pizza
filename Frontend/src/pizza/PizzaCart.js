@@ -79,7 +79,7 @@ function initialiseCart() {
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
     //TODO: ...
     var saved_orders =	Storage.get('cart');
-    alert(saved_orders);
+   // alert(saved_orders);
 if(saved_orders)	{
     order_val=0;
 Cart	=	saved_orders;
