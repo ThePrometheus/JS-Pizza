@@ -2,9 +2,10 @@
 var PizzaCart = require('./PizzaCart');
 var api = require('../API');
       
-       
- var  LIQPAY_PRIVATE_KEY='i68993676007';
-var LIQPAY_PUBLIC_KEY= 'zpmWpK5LVi4dhCdRJvzUbH6JmPcfJ8BuZftXU5zv';
+        var crypto = require('crypto');
+
+ var  LIQPAY_PRIVATE_KEY='zpmWpK5LVi4dhCdRJvzUbH6JmPcfJ8BuZftXU5zv';
+var LIQPAY_PUBLIC_KEY= 'i68993676007';
 function initialize(){
     console.log("inside init");
     var mapProp = {
@@ -160,7 +161,7 @@ alert("Not time");}else{
 //$("#name").val( "new value here" );
                
          function validateName(){
-            var pattern=/^[A-Za-z-Яа-я\s]{1,}[\.]{0,1}[A-Za-zА-Яа-я\s]{0,}$/;
+            var pattern=/^[A-Za-zА-Яа-я\s]{1,}[\.]{0,1}[A-Za-zА-Яа-я\s]{0,}$/;
              
             var input = $("#name").val();
              console.log(pattern +input);
@@ -209,7 +210,7 @@ console.log("can't get coordinates form that address");}else{
     var coords = data;
      geocodeLatLng(coords,function(error,address){
                  if(error){
-                      $("#address-input").removelass("has-success");
+                      $("#address-input").removeClass("has-success");
                      $("address-input").addClass("has-error");
                      $("#address-error").css("color","#a94442");
                     $("#address-error").html("формат адреси (бульвар Перова,3,Київ)");
@@ -252,12 +253,12 @@ console.log("can't get coordinates form that address");}else{
                     alert($("#telephone").val());
                     alert($("#name").val());
                     if($(".info-about-order-address-res").text()&& $("#telephone").val()&&$("#name").val()){
-                        var address= $("#info-about-order-address-res").text();
+                        var address= $(".info-about-order-address-res").text();
                         var telephone = $("#telephone").val();
                         var name= $("#name").val();
                         api.createOrder(PizzaCart.getPizzaInCart(),function(err,data){
                             if(!err){
-                               alert("Link?"); createOrder(PizzaCart.getPizzaInCart(),address,telephone,name);
+                               alert("Link?"); saveOrder(PizzaCart.getPizzaInCart(),address,telephone,name);
                                 alert("Created order");
                             }else{
                                 alert("Error api");
@@ -272,34 +273,51 @@ console.log("can't get coordinates form that address");}else{
                     
                     
 });
-            function createOrder(list,address,telephone,name){
-                var dat="Name:"+name+"Telephone:"+telephone+"Address:"+address;
-                var total_price= parseInt($(".total-price").val());
+    
+   
+            function saveOrder(list,address,telephone,name){
+                alert("Here:");
+                var dat="Name:"+name+"Telephone:"+telephone+"Address:"+address+":";
+                alert(dat);
+                var total_price= parseInt($(".total-price").text());
+                 alert(total_price);
                 list.forEach(function(cart_item,index,list){
                     data +="pizza"+cart_item.title+"size"+cart_item.size +"quantity:"+cart_item.quantity;
                     
                 }); 
+                 alert("pre-order");
+                var num=1;
                 var order = {
 version: 3,
 public_key: LIQPAY_PUBLIC_KEY,
 action: "pay",
-amount: total_price,
+amount: num,
 currency: "UAH",
 description: dat,
 order_id: Math.random(),
 //!!!Важливо щоб було 1, бо інакше візьме гроші!!!
 sandbox: 1
 };
-var data = base64(JSON.stringify(dat));
-var signature = sha1(LIQPAY_PRIVATE_KEY + data + LIQPAY_PRIVATE_KEY);
                 
+                function sha1(string) {
+var sha1 = crypto.createHash('sha1');
+sha1.update(string);
+return sha1.digest('base64');
+}
+    function base64(str) {
+return new Buffer(str).toString('base64');
+}
+                 alert("after-order"+LIQPAY_PUBLIC_KEY+LIQPAY_PRIVATE_KEY);
+var data = base64(JSON.stringify(order));
+var signature = sha1(LIQPAY_PRIVATE_KEY + data + LIQPAY_PRIVATE_KEY);
+                 alert("checkout");
             LiqPayCheckout.init({
 data: data,
 signature: signature,
 embedTo: "#liqpay",
 mode: "popup" // embed || popup
 }).on("liqpay.callback", function(data){
-console.log(data.status);
+console.log("Data"+data.status);
 console.log(data);
 }).on("liqpay.ready", function(data){
 // ready

@@ -14,6 +14,8 @@
             <link rel="stylesheet/less" type="text/css" href=" assets/less/main.less" />
             <!-- LESS JavaScript компілятор -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+              <script src="//static.liqpay.com/libjs/checkout.js">
+</script>
 
 
         </head>
@@ -89,7 +91,7 @@
          
           <div class="form-group"> 
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default btn-warning gradient next-button">Далі</button>
+              <div class="btn btn-default btn-warning gradient next-button">Далі</div>
             </div>
           </div>
                             <div id="map"></div>
@@ -201,8 +203,8 @@
 
     </div>
             </div>
-            <script src="//static.liqpay.com/libjs/checkout.js">
-</script>
+            <div id ="liqpay"></div>
+          
             
      <!-- <div id="liqpay"></div> -->
 <% include common/footer.ejs %>
